@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.97">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="James M. Clawson">
+<title>Stylo2gg: Visualizing reproducible stylometric analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="01-stylo2gg_files/libs/clipboard/clipboard.min.js"></script>
+<script src="01-stylo2gg_files/libs/quarto-html/quarto.js"></script>
+<script src="01-stylo2gg_files/libs/quarto-html/popper.min.js"></script>
+<script src="01-stylo2gg_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="01-stylo2gg_files/libs/quarto-html/anchor.min.js"></script>
+<link href="01-stylo2gg_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="01-stylo2gg_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="01-stylo2gg_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="01-stylo2gg_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="01-stylo2gg_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+</head>
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li>
+<a href="#reproducible-analyses" id="toc-reproducible-analyses" class="nav-link" data-scroll-target="#reproducible-analyses">Reproducible analyses</a>
+  <ul class="collapse">
+<li><a href="#logging-an-analysis" id="toc-logging-an-analysis" class="nav-link" data-scroll-target="#logging-an-analysis">Logging an analysis</a></li>
+  <li><a href="#replicating-an-analysis" id="toc-replicating-an-analysis" class="nav-link" data-scroll-target="#replicating-an-analysis">Replicating an analysis</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#principal-components" id="toc-principal-components" class="nav-link" data-scroll-target="#principal-components">Principal components</a>
+  <ul class="collapse">
+<li><a href="#labeling-points" id="toc-labeling-points" class="nav-link" data-scroll-target="#labeling-points">Labeling points</a></li>
+  <li><a href="#highlighting-groups" id="toc-highlighting-groups" class="nav-link" data-scroll-target="#highlighting-groups">Highlighting groups</a></li>
+  <li><a href="#overlay-loadings" id="toc-overlay-loadings" class="nav-link" data-scroll-target="#overlay-loadings">Overlay loadings</a></li>
+  <li><a href="#narrowing-things-down" id="toc-narrowing-things-down" class="nav-link" data-scroll-target="#narrowing-things-down">Narrowing things down</a></li>
+  <li><a href="#emphasizing-with-contrast" id="toc-emphasizing-with-contrast" class="nav-link" data-scroll-target="#emphasizing-with-contrast">Emphasizing with contrast</a></li>
+  <li><a href="#withholding-texts-from-a-pca-projection" id="toc-withholding-texts-from-a-pca-projection" class="nav-link" data-scroll-target="#withholding-texts-from-a-pca-projection">Withholding texts from a PCA projection</a></li>
+  <li><a href="#choosing-principal-components" id="toc-choosing-principal-components" class="nav-link" data-scroll-target="#choosing-principal-components">Choosing principal components</a></li>
+  <li><a href="#other-options-for-principal-components-analysis" id="toc-other-options-for-principal-components-analysis" class="nav-link" data-scroll-target="#other-options-for-principal-components-analysis">Other options for principal components analysis</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#hierarchical-clusters" id="toc-hierarchical-clusters" class="nav-link" data-scroll-target="#hierarchical-clusters">Hierarchical clusters</a>
+  <ul class="collapse">
+<li><a href="#options-for-distance-and-linkage" id="toc-options-for-distance-and-linkage" class="nav-link" data-scroll-target="#options-for-distance-and-linkage">Options for distance and linkage</a></li>
+  <li><a href="#minimal-display" id="toc-minimal-display" class="nav-link" data-scroll-target="#minimal-display">Minimal display</a></li>
+  <li><a href="#highlighting-results-with-boxes" id="toc-highlighting-results-with-boxes" class="nav-link" data-scroll-target="#highlighting-results-with-boxes">Highlighting results with boxes</a></li>
+  <li><a href="#vertical-dendrograms" id="toc-vertical-dendrograms" class="nav-link" data-scroll-target="#vertical-dendrograms">Vertical dendrograms</a></li>
+  </ul>
+</li>
+  <li><a href="#ggplot2-features" id="toc-ggplot2-features" class="nav-link" data-scroll-target="#ggplot2-features">Ggplot2 features</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Stylo2gg: Visualizing reproducible stylometric analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>James M. Clawson </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header><section id="overview" class="level2"><h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In text analysis, stylometry is the measuring of written style. By comparing the use of certain features—most frequent words, bigrams, parts of speech, or some other selection—a stylometrician might propose authorship of unsigned works, understand differences among the styles of known authors, or even suggest the chronological placement of an undated work. From court cases to literary studies, the technique has wide uses.</p>
+<p>In R, one of the most common packages for stylometry is <a href="https://github.com/computationalstylistics/stylo">Stylo</a>, authored by Maciej Eder, Jan Rybicki, Mike Kestemont, and Steffen Pielstroem. Stylo provides beginners a GUI overlay, making it more approachable to users who might be uncomfortable writing code. For others, a parameter-based interface makes it possible to use Stylo in RMarkdown and Quarto documents, embedding analysis within a document to keep work reproducible and organized. With such a range of accessibility and accuracy proven by its use in many peer-reviewed publications, Stylo is a boon for researchers.</p>
+<p>Still, Stylo has some limitations:</p>
+<ol type="1">
+<li><p>It can be hard to keep track of analyses when trying out many things in a session.</p></li>
+<li><p>While exploring a corpus, users are faced with the burden of rerunning an analysis for each small change of visualization.</p></li>
+<li><p>The use of base graphics may not match other figures in a project that uses Ggplot2.</p></li>
+</ol>
+<p>The Stylo2gg package, now at version 1.0, has been shared to address these concerns. See <a href="https://github.com/jmclawson/stylo2gg">github.com/jmclawson/stylo2gg</a> for the code, and install the package using <code>remotes::install_github("jmclawson/stylo2gg")</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section><section id="reproducible-analyses" class="level2"><h2 class="anchored" data-anchor-id="reproducible-analyses">Reproducible analyses</h2>
+<p>Christof Schöch documented some of Stylo’s shortcomings for documenting reproducible analyses on the package’s issues tracker.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Among them are that the parameters get lost when working from the terminal and that files get overwritten each time the <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> function is called. To address these concerns, Stylo2gg adds two functions.</p>
+<section id="logging-an-analysis" class="level3"><h3 class="anchored" data-anchor-id="logging-an-analysis">Logging an analysis</h3>
+<p>When creating an analysis from the function <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code>, the function <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code> will document necessary steps. Here’s how it’s used:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/computationalstylistics/stylo">stylo</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stylo2gg</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">my_data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span></span>
+<span>  gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
+<span>  display.on.screen<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  culling.max<span class="op">=</span><span class="fl">75</span>,</span>
+<span>  culling.min<span class="op">=</span><span class="fl">75</span>,</span>
+<span>  mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
+<span>  mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log</a></span><span class="op">(</span><span class="va">my_data1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This last step creates a directory called “stylo_log” within the working directory. Inside it are five files: four time-stamped copies of configuration files provided by Stylo, and one file logging every time <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code> was called today in this project, along with any parameters needed to recreate it.</p>
+</section><section id="replicating-an-analysis" class="level3"><h3 class="anchored" data-anchor-id="replicating-an-analysis">Replicating an analysis</h3>
+<p>A second function, <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code> allows for the recreation of a logged analysis. For instance, the following will reproduce the analysis logged at 12:01 AM on Jan 1, 2023:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate</a></span><span class="op">(</span><span class="st">"2023-01-01 00:01:00"</span>, </span>
+<span>                            log_date <span class="op">=</span> <span class="st">"2023-01-01"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The only differences between <code>my_data1</code> and <code>my_data2</code> are in the objects’ saved <em>call</em>. The object created by <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> records only the parameters listed above, but the object created with <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code> makes the default settings explicit.</p>
+<p>Lastly, if <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code> is used without a <code>date_time</code> argument, it will act like <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code>, with the added benefit of automatically calling <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code> in the same step:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_data3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
+<span>  display.on.screen<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  culling.max<span class="op">=</span><span class="fl">75</span>,</span>
+<span>  culling.min<span class="op">=</span><span class="fl">75</span>,</span>
+<span>  mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
+<span>  mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, the objects <code>my_data1</code> (created by <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo::stylo()</a></code> before being logged by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code>), <code>my_data2</code> (replicated by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo2gg::stylo_replicate()</a></code>), and <code>my_data3</code> (created and logged via <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code>) are almost identical. This makes it easier to keep track of the processes used in analysis, providing the “documentation mode” and “replication mode” Schöch calls for.</p>
+</section></section><section id="principal-components" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="principal-components">Principal components</h2>
+<p>One common method for understanding stylometric relationships among texts is to visualize a principal components analysis in a two-dimensional space. To do this, typically the first principal component is projected on the X-axis, and the second principal component is projected on the Y-axis. In addition to measuring word frequencies among all documents in a corpus, the Stylo package shows a visualization of such an analysis, projecting many documents into a chart showing these kinds of coordinates. As an example, here’s the code and output showing similarities among the eighty-five <em>Federalist Papers</em>, originally published pseudonymously in 1788:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/computationalstylistics/stylo">stylo</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">federalist_mfw</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>        corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
+<span>        analysis.type<span class="op">=</span><span class="st">"PCR"</span>,</span>
+<span>        pca.visual.flavour <span class="op">=</span> <span class="st">"symbols"</span>,</span>
+<span>        analyzed.features<span class="op">=</span><span class="st">"w"</span>,</span>
+<span>        ngram.size<span class="op">=</span><span class="fl">1</span>,</span>
+<span>        display.on.screen<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>        sampling<span class="op">=</span><span class="st">"no.sampling"</span>,</span>
+<span>        culling.max<span class="op">=</span><span class="fl">75</span>,</span>
+<span>        culling.min<span class="op">=</span><span class="fl">75</span>,</span>
+<span>        mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
+<span>        mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/introstylo1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">This visualization places each part by its frequencies of 120 of the most frequent words—chosen from among words appearing in at least three-fourths of all papers The chart shows that the texts whose authorship had once been in question, shown here in green crosses, have frequency distributions most similar to those by James Madison, shown here with red Xs.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As the figure suggests, most of these documents were eventually known to be written by Alexander Hamilton, John Jay, and James Madison, shown categorized here by their last names. Although most had known authorship, some were disputed or had joint authorship, shown here by the “NA” category. From their placement along the X- and Y-axes, the disputed papers seem closest in style to those by James Madison. The analysis here uses some of the same measures Frederick Mosteller and David Wallace famously used in their 1963 study, and it arrives at similar conclusions, but the ease and usefulness of tools like Stylo means that preparing this quick visualization demands far less time and sweat.</p>
+<p>In saving this output to a named object <code>federalist_mfw</code>, Stylo makes it possible to access the frequency tables to study them in other ways. By taking advantage of this object, the Stylo2gg package makes it very easy to try out different visualizations. Without any changed parameters, the <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg()</a></code> function will import defaults from the call used to run <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stylo2gg</span><span class="op">)</span></span>
+<span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Using selected <code>ggplot2</code> defaults for shapes and colors, the visualization created by <code>stylo2gg</code> nevertheless shows the same patterns of style, presenting a figure drawn from the same principal components. Here, the disputed papers are marked by purple diamonds, and they seem closest in style to the parts known to be by Madison, marked by blue Xs.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the simplest conversion of a <code>stylo</code> object, <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg()</a></code> tries as closely as is reasonable to recreate the analytic and aesthetic decisions that went into the creation of that object, creating a chart comparing first and second principal components with axes marked by each’s distributed percentage of variation; the caption shows the feature count, feature type, culling percentage, and matrix type; and the legend is shown at the top of the graph. Stylo2gg even honors the choice from the original <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> call to show principal components derived from a correlation matrix, although other options are available.</p>
+<section id="labeling-points" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="labeling-points">Labeling points</h3>
+<p>From here, it’s easy to change options to clarify an analysis without having to call <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> again. Files prepared for Stylo typically follow a specific naming convention: in the case of this corpus, Federalist No.&nbsp;10 is prepared in a text file called <code>Madison_10.txt</code>, indicating metadata offset by underscores, with the author name coming first and the title or textual marker coming next. Stylo already uses the first part of this metadata to apply color to different authors or class groupings of texts. Stylo2gg follows suit, but it can also choose among these aspects to apply a label. For this chart, it might make sense to replace symbols with the number of each paper it represents:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">The option <code>shapes=FALSE</code> turns off the symbols that would otherwise also appear; simultaneously, the option <code>labeling=2</code> selects the second metadata element from corpus filenames—in this case the number of the specific paper—as a label for the visualization. When a chosen label consists of nothing but numbers, as it does here, the legend key changes to a number sign. If a label includes any other characters, it becomes the letter ‘a’, Ggplot2’s default key for showing color of text.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Displaying these labels makes it possible further to study Mosteller and Wallace’s findings on the papers jointly authored by Madison and Hamilton: in this principal components analysis of 120 most frequent words, papers 18, 19, and 20 seem closer in style to Madison than to Hamilton, and Mosteller and Wallace’s work using different techniques seems to show the same finding for two of these three papers, with mixed results for number 20.</p>
+<p>If it were preferred instead to label the author names, we could set <code>labeling=1</code>. If we wanted to show everything, replicating Stylo’s option <code>pca.visual.flavour="labels"</code>, we can set <code>labeling=0</code>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">The option <code>labeling=0</code> shows entire file names for items in the corpus, excepting the extension. This option also turns off the legend by default, since that information is already indicated.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="highlighting-groups" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="highlighting-groups">Highlighting groups</h3>
+<p>In addition to recreating some of the visualizations offered by Stylo, Stylo2gg takes advantage of Ggplot2’s extensibility to offer additional options. If, for instance, we want to emphasize the overlap of style among the disputed papers and those by Madison, it’s easy to show a highlight of the 3rd and 4th categories of texts, corresponding to their ordering on the legend:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">The <code>highlight</code> option accepts numbers corresponding to categories shown on the legend. Highlights on principal components charts can include 1 or more categories, but highlights for hierarchical clusters can only accept one category. To draw these loops around points on a scatterplot, stylogg relies on the <a href="https://cran.r-project.org/web/packages/ggalt/index.html">ggalt</a> package.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="overlay-loadings" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="overlay-loadings">Overlay loadings</h3>
+<p>With these texts charted, we might want to communicate something about the underlying word frequencies that inform their placement. The <code>top.loadings</code> option allows us to show a number of words—ordered from the most frequent to the least frequent—overlaid with scaled vectors as alternative axes on the principal components chart:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           top.loadings <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Set <code>top.loadings</code> to a number <code>n</code> to overlay loadings for the most frequent words, from 1 to <code>n</code>. This chart shows loadings and scaled vectors for the 10 most frequent words.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alternatively, show loadings by nearest principal components, by the middle point of a given category, by a specific word, or all of the above:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           select.loadings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="op">-</span><span class="fl">6</span><span class="op">)</span>,</span>
+<span>                                  <span class="st">"Madison"</span>,</span>
+<span>                                  <span class="fu"><a href="https://rdrr.io/r/base/call.html">call</a></span><span class="op">(</span><span class="st">"word"</span>, </span>
+<span>                                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"a"</span>, <span class="st">"an"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">In a list form, the <code>select.loadings</code> option accepts coordinates, category names, and words. Here, <code>c(-4,-6)</code> indicates that the code should find the loading nearest to -4 on the first principal component and -6 on the second principal component; <code>"Madison"</code> indicates that the function should find coordinates at the middle of papers by Madison and then find the loading nearest those coordinates; and three articles “the,” “a,” and “an” indicate, using <code>call("word")</code>, that these specific loadings should be shown.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>These words and lines are gray by default. As of fall 2022, other colors can be specified, and the letters can be converted to uppercase for legibility:<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>top.loadings <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>           loadings.line.color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>           loadings.word.color <span class="op">=</span> <span class="st">"navy"</span>,</span>
+<span>           loadings.upper <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Set <code>loadings.line.color</code> and <code>loadings.word.color</code> to change the coloring of loadings. Optionally toggle <code>loadings.upper</code> to show uppercase letters, or set <code>loadings.spacer</code> to define the character shown in lieu of spaces when measuring bigrams and other n-grams.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="narrowing-things-down" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="narrowing-things-down">Narrowing things down</h3>
+<p>One beauty of using a saved frequency list is that it becomes possible to select a subset from the data to inform an analysis. By counting all words that appear in 75% of the texts for this analysis, Stylo prepares a frequency table of 120 words. Stylo2gg can select a subset of these using the <code>features</code> option, for selecting a specific vector of words, or the <code>num.features</code> option, for automatically selecting a given number of the most frequent words.</p>
+<p>One might, for instance, hypothesize that words shorter than four characters are sufficient to differentiate style in these English texts.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Using the <code>features</code> option, I might test this hypothesis by choosing a smaller subset from the full list of 120 most frequent words:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">short_words</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">federalist_mfw</span><span class="op">$</span><span class="va">features.actually.used</span><span class="op">[</span><span class="va">federalist_mfw</span><span class="op">$</span><span class="va">features.actually.used</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>           features <span class="op">=</span> <span class="va">short_words</span>,</span>
+<span>           top.loadings <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Selecting a subset of features will also cause the caption to update from “120 MFW” to “42 W,” reflecting the changed number of features and the type: they are no longer most frequent words (MFW) but are now just words (W).</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Results here suggest that my hypothesis would have been mostly correct, as it is possible still to see patterns in clusters. But limiting an analysis solely to these shorter words makes it harder to differentiate the styles of Hamilton and Madison. Interestingly, Jay’s style remains distinct in this consideration. Interesting, too, the overlay of the top ten loadings shows that papers with positive values in the second principal component in this chart—above a center line—are strongest in first-person plural features like “us” and “our” and “we.” And perhaps most interesting, just quickly looking at the top ten loadings suggests that Hamilton’s papers may have been less likely to use past-tense constructions like “was” and “had,” preferring infinitive forms marked by “to” and “be.”</p>
+<p>If instead of manually selecting features I wanted to choose a subset by number, the <code>num.features</code> option makes it possible to do so.</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           labeling <span class="op">=</span> <span class="va">federalist_mfw</span><span class="op">$</span><span class="va">table.with.all.freqs</span> <span class="op">|&gt;</span> </span>
+<span>             <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>             <span class="fu">str_extract</span><span class="op">(</span><span class="st">"^[A-Z]"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"."</span>,</span>
+<span>                    <span class="va">federalist_mfw</span><span class="op">$</span><span class="va">table.with.all.freqs</span> <span class="op">|&gt;</span> </span>
+<span>                      <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>                      <span class="fu">str_extract</span><span class="op">(</span><span class="st">"[0-9]+"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>           legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           num.features <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Setting <code>num.features</code> to 50 will limit a chart to the 50 most frequent words. The caption updates to reflect this choice.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The code for this last visualization also shows that, in addition to a number corresponding to the metadata from a filename, the <code>labeling</code> option can also accept a vector of the same length as the number of texts. Here, I’ve elected to show the first letter of each author category, a dot, and the text’s corresponding number; additionally, I’ve turned off the legend by setting its option to <code>FALSE</code>.</p>
+</section><section id="emphasizing-with-contrast" class="level3"><h3 class="anchored" data-anchor-id="emphasizing-with-contrast">Emphasizing with contrast</h3>
+<p>By default, stylo2gg uses symbols that ought to be distinguishable when printing in gray scale. Use the <code>black=</code> option with the number of a given category to further optimize for gray-scale printing or to employ contrast to emphasize a particular group.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>black <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="withholding-texts-from-a-pca-projection" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="withholding-texts-from-a-pca-projection">Withholding texts from a PCA projection</h3>
+<p>In cases of disputed authorship, it can be desirable to understand relationships among known texts and authors before considering those of unknown provenance. New in version 1.0, Stylo2gg’s <code>withholding</code> parameter allows for certain classes to be left out from defining the base projection of a principal components analysis. These texts are then projected into a space they did not help define:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>withholding <span class="op">=</span> <span class="st">"NA"</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>           black <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Defining <code>withholding</code> makes it possible to ignore certain classes of texts from the underlying projection.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="choosing-principal-components" class="level3"><h3 class="anchored" data-anchor-id="choosing-principal-components">Choosing principal components</h3>
+<p>Stylo2gg follows Stylo’s lead in showing the first two principal components, but it may often be necessary to show more. Introduced earlier in 2023, the <code>pc.x</code> and <code>pc.y</code> parameters make it possible to map other components to the X-axis and Y-axis, simultaneously updating axis labels to indicate components and variance.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>pc.x <span class="op">=</span> <span class="fl">3</span>, pc.y <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="other-options-for-principal-components-analysis" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="other-options-for-principal-components-analysis">Other options for principal components analysis</h3>
+<p>In addition to the options shown above, principal components analysis can be directed with a covariance matrix (<code>viz = "PCV</code>) or correlation matrix (<code>viz = "PCV</code>), and a given chart can be flipped horizontally (with <code>invert.x=TRUE</code>) or vertically (<code>invert.y=TRUE</code>). Additionally, the caption below the chart can be removed using <code>caption=FALSE</code>. Alternatively, setting <code>viz="pca"</code> will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (<code>caption=TRUE</code>), moving the legend or calling on other ggplot2 commands, adding a title (using <code>title="Title Goes Here"</code>), or other matters.</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">scale_size_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8.5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_alpha_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.5</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Larger, solid points can make relationships easier to understand."</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Setting alpha values is a good idea when solid points overlap."</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz=pca</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section id="hierarchical-clusters" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="hierarchical-clusters">Hierarchical clusters</h2>
+<p>In addition to two-dimensional relationships with principal components, Stylo can also show a dendrogram for cluster analysis, showing texts’ relationships based on their distance to each other. The resulting dendrogram shows texts in branches splitting off from one another at points that correspond to distance. In the orientation shown below, when two texts or groups of texts seem to have greater stylistic similarity, their branches will join nearer to the right side of the chart—nearer to a distance of zero. As the texts show greater dissimilarity, their branches will connect closer to the left side of the chart.</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>      corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
+<span>      custom.graph.title<span class="op">=</span><span class="st">"Federalist Papers"</span>,</span>
+<span>      analysis.type<span class="op">=</span><span class="st">"CA"</span>,</span>
+<span>      analyzed.features<span class="op">=</span><span class="st">"w"</span>,</span>
+<span>      ngram.size<span class="op">=</span><span class="fl">1</span>,</span>
+<span>      display.on.screen<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>      sampling<span class="op">=</span><span class="st">"no.sampling"</span>,</span>
+<span>      culling.max<span class="op">=</span><span class="fl">75</span>,</span>
+<span>      culling.min<span class="op">=</span><span class="fl">75</span>,</span>
+<span>      mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
+<span>      mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/stylo_hc-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Using the same <code>federalist_mfw</code> object saved earlier, Stylo2gg will create a similar cluster analysis using the option <code>viz="CA"</code>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">To prepare dendrograms for display, stylo2gg uses <a href="https://cran.r-project.org/web/packages/dendextend/index.html">dendextend</a>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The addition of symbols to the chart allows for interpretability when printing, though these can be turned off with <code>shapes=FALSE</code>, as they can when showing PCA. In fact, many of the same options that apply to a visualization of principal components will also apply to cluster analysis:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"CA"</span>,</span>
+<span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           black <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="options-for-distance-and-linkage" class="level3"><h3 class="anchored" data-anchor-id="options-for-distance-and-linkage">Options for distance and linkage</h3>
+<p>Stylo2gg will adopt Stylo’s settings for measuring distances and finding groups if they are available. If they’re not available, it will default to finding distance using the Burrows delta (<code>distance.measure="delta"</code>) and grouping texts using the Ward1 method (<code>linkage="ward.D"</code>). Many other options native to Stylo and to R can be set for these.</p>
+</section><section id="minimal-display" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="minimal-display">Minimal display</h3>
+<p>When setting <code>viz="CA"</code> or importing directly from a Stylo analysis with the option set <code>analysis.type="CA"</code>, Stylo2gg will try to approximate the aesthetics shown by stylo, displaying an axis of distance and an explanatory caption. These options may not be desired since relative distances are already meaningful without the axis. To show a minimal dendrogram, choose the option <code>viz="hc"</code> (for hierarchical clustering)</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
+<span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
+<span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">This minimal dendrogram shows clusters using the Ward2 method based on Euclidean distances. If labels get clipped at the edge, consider expanding the limits using the added function shown here.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="highlighting-results-with-boxes" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="highlighting-results-with-boxes">Highlighting results with boxes</h3>
+<p>As shown above, setting the <code>highlight</code> option to a category’s number will draw a box around the branches containing this category. Unlike with principal components visualization, only one category can be highlighted at a time on a dendrogram; nevertheless, there are a few more options available to tweak this highlighting.</p>
+<p>By default, Stylo2gg will draw a single box, even if texts belonging to a category are distributed unevenly.</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
+<span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           highlight<span class="op">=</span><span class="fl">1</span>,</span>
+<span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
+<span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Drawing a highlight box when texts are distributed widely isn’t very useful. The <code>highlight.nudge</code> option here moves the box’s edge to avoid clipping labels; whether it is needed might depend on local installations.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Setting <code>highlight.single=FALSE</code> will instead draw multiple boxes while consolidating any contiguous branches:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
+<span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           highlight<span class="op">=</span><span class="fl">1</span>,</span>
+<span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>           highlight.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
+<span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As an alternative to categorical highlighting on a dendrogram, Stylo2gg can draw boxes indicated by each text’s index number from the bottom, with the lowest text being number 1, the second-lowest text number 2, etc:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
+<span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>           highlight.box <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">19</span>, <span class="fl">23</span><span class="op">:</span><span class="fl">24</span>, <span class="fl">29</span><span class="op">:</span><span class="fl">63</span>, <span class="fl">84</span><span class="op">:</span><span class="fl">85</span><span class="op">)</span>,</span>
+<span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
+<span>           distance <span class="op">=</span> <span class="st">"euclidean"</span>,</span>
+<span>           show.zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Manually indicate groupings to highlight using the <code>highlight.box</code> option. To aid in the counting, set <code>count.labels=TRUE</code>.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="vertical-dendrograms" class="level3"><h3 class="anchored" data-anchor-id="vertical-dendrograms">Vertical dendrograms</h3>
+<p>Finally, set <code>horiz=FALSE</code> to display the cluster analysis vertically instead of horizontally:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"CA"</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section></section><section id="ggplot2-features" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="ggplot2-features">Ggplot2 features</h2>
+<p>In addition to the options accommodated within Stylo2gg, visualizations benefit from the conversion to the Ggplot2 system over base graphics. Options like theming, transparency, and symbol shape and size behave as they do with any other Ggplot2 output, potentially matching other visualizations in a report and giving one access to many useful functions for communicating findings.</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">xlim</span><span class="op">(</span><span class="op">-</span><span class="fl">4.5</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">ylim</span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Changing <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> allows you to zoom in on a particular region.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Additionally, Ggplot2 makes it easy to add layers, imagining new ways of communicating an idea—for example, by using density overlays to indicate how Hamilton’s typical style is distinct from the style of the disputed papers:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="va">federalist_mfw</span>, <span class="st">"pca"</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">scale_alpha_manual</span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_density_2d</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
+<span>                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">The plot created by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg()</a></code> passes along the variable <code>class</code> used for the categorical grouping.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Most usefully, the conversion to Ggplot2 allows visualizations to benefit from a universe of package add-ons like “<a href="https://github.com/thomasp85/ggforce">Ggforce</a>,” which opens up many more options and customizations than could ever be considered in a single package devoted to stylometry:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com">ggforce</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="va">federalist_mfw</span>, <span class="st">"pca"</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">class</span>, </span>
+<span>                     color<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group<span class="op">=</span><span class="va">class</span>, </span>
+<span>                     label<span class="op">=</span><span class="va">class</span>, </span>
+<span>                     filter<span class="op">=</span><span class="va">class</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Madison"</span>,<span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                 con.cap <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                 show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Many other extensions to Ggplot2 are available.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Although not all are appropriate for stylometry, and only some will be compatible with Stylo2gg’s data structure, it’s promising to see some like Ggforce working instantly.</p>
+</section><section id="conclusions" class="level2"><h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>Written by a user to address specific needs of users when visualizing with Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.</p>
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-rmarkdown2023" class="csl-entry" role="doc-biblioentry">
+Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, et al. 2023. <em><span class="nocase">rmarkdown</span>: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
+</div>
+<div id="ref-stylo2gg" class="csl-entry" role="doc-biblioentry">
+Clawson, James M. 2023. <em>Stylo2gg: Visualize Stylometric Data with Ggplot2</em>.
+</div>
+<div id="ref-stylo" class="csl-entry" role="doc-biblioentry">
+Eder, Maciej, Jan Rybicki, and Mike Kestemont. 2016. <span>“Stylometry with r: A Package for Computational Text Analysis.”</span> <em>R Journal</em> 8 (1): 107–21. <a href="https://journal.r-project.org/archive/2016/RJ-2016-007/index.html">https://journal.r-project.org/archive/2016/RJ-2016-007/index.html</a>.
+</div>
+<div id="ref-ginnerskov2022" class="csl-entry" role="doc-biblioentry">
+Ginnerskov, Josef. 2022. <span>“Change Color of Loadings (Arrows and Features).”</span> <em>Stylo2gg <em>Issues Tracker</em></em>. <a href="https://github.com/jmclawson/stylo2gg/issues/2">https://github.com/jmclawson/stylo2gg/issues/2</a>.
+</div>
+<div id="ref-ginnerskov2023" class="csl-entry" role="doc-biblioentry">
+———. 2023. <span>“Loadings Stuck on PC1 and PC2 When Trying to Plot PC3.”</span> <em>Stylo2gg <em>Issues Tracker</em></em>. <a href="https://github.com/jmclawson/stylo2gg/issues/4">https://github.com/jmclawson/stylo2gg/issues/4</a>.
+</div>
+<div id="ref-mosteller" class="csl-entry" role="doc-biblioentry">
+Mosteller, Frederick, and David L. Wallace. 1963. <span>“Inference in an Authorship Problem.”</span> <em>Journal of the American Statistical Association</em> 58 (302): 275–309. <a href="http://www.jstor.org/stable/2283270">http://www.jstor.org/stable/2283270</a>.
+</div>
+<div id="ref-ggforce" class="csl-entry" role="doc-biblioentry">
+Pedersen, Thomas Lin. 2022. <em><span class="nocase">ggforce</span>: Accelerating <span>“<span class="nocase">ggplot2</span>”</span></em>. <a href="https://CRAN.R-project.org/package=ggforce">https://CRAN.R-project.org/package=ggforce</a>.
+</div>
+<div id="ref-base" class="csl-entry" role="doc-biblioentry">
+R Core Team. 2022. <em><span>R</span>: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-schoch" class="csl-entry" role="doc-biblioentry">
+Schöch, Christof. 2022. <span>“Proposal for a Replication or Documentation Mode.”</span> <em>Stylo <em>Issues Tracker</em></em>. <a href="https://github.com/computationalstylistics/stylo/issues/53">https://github.com/computationalstylistics/stylo/issues/53</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-knitr2014" class="csl-entry" role="doc-biblioentry">
+Xie, Yihui. 2014. <span>“<span class="nocase">knitr</span>: A Comprehensive Tool for Reproducible Research in <span>R</span>.”</span> In <em>Implementing Reproducible Computational Research</em>, edited by Victoria Stodden, Friedrich Leisch, and Roger D. Peng. Chapman; Hall/CRC.
+</div>
+<div id="ref-knitr2015" class="csl-entry" role="doc-biblioentry">
+———. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+<div id="ref-knitr2023" class="csl-entry" role="doc-biblioentry">
+———. 2023. <em><span class="nocase">knitr</span>: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+<div id="ref-rmarkdown2018" class="csl-entry" role="doc-biblioentry">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown">https://bookdown.org/yihui/rmarkdown</a>.
+</div>
+<div id="ref-rmarkdown2020" class="csl-entry" role="doc-biblioentry">
+Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbook</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown-cookbook">https://bookdown.org/yihui/rmarkdown-cookbook</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<ol>
+<li id="fn1"><p>This notebook was created using R version 4.2.1 <span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">R Core Team 2022</a>)</span> with the following R packages: ggforce v. 0.4.1 <span class="citation" data-cites="ggforce">(<a href="#ref-ggforce" role="doc-biblioref">Pedersen 2022</a>)</span>, knitr v. 1.42 <span class="citation" data-cites="knitr2014 knitr2015 knitr2023">(<a href="#ref-knitr2014" role="doc-biblioref">Xie 2014</a>, <a href="#ref-knitr2015" role="doc-biblioref">2015</a>, <a href="#ref-knitr2023" role="doc-biblioref">2023</a>)</span>, rmarkdown v. 2.21 <span class="citation" data-cites="rmarkdown2018 rmarkdown2020 rmarkdown2023">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>; <a href="#ref-rmarkdown2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>; <a href="#ref-rmarkdown2023" role="doc-biblioref">Allaire et al. 2023</a>)</span>, stylo v. 0.7.5 <span class="citation" data-cites="stylo">(<a href="#ref-stylo" role="doc-biblioref">Eder, Rybicki, and Kestemont 2016</a>)</span>, stylo2gg v. 1.0 <span class="citation" data-cites="stylo2gg">(<a href="#ref-stylo2gg" role="doc-biblioref">Clawson 2023</a>)</span>, tidyverse v. 2.0.0 <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See Schöch’s explanation on Stylo’s issue tracker on GitHub: <a href="https://github.com/computationalstylistics/stylo/issues/53">github.com/computationalstylistics/stylo/issues/53</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The option to choose the color for loadings was requested by Josef Ginnerskov via Stylo2gg’s issue tracker on GitHub: <a href="https://github.com/jmclawson/stylo2gg/issues/2">github.com/jmclawson/stylo2gg/issues/2</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Mosteller and Wallace write of being surprised that “high-frequency function words did the best job” (304), and their findings of this tendency in English texts have been confirmed many times over since then.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This feature was requested by Josef Ginnerskov via Stylo2gg’s issue tracker on GitHub: <a href="https://github.com/jmclawson/stylo2gg/issues/4">github.com/jmclawson/stylo2gg/issues/4</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>A collection can be found <a href="https://exts.ggplot2.tidyverse.org/gallery/">here</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></div></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Clawson
+    given-names: James
+title: "Stylo2gg: Visualizing reproducible stylometric analysis"
+date-released: 2023-05-15
