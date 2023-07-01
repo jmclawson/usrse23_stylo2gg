@@ -435,19 +435,21 @@ div.csl-indent {
 </section><section id="other-options-for-principal-components-analysis" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="other-options-for-principal-components-analysis">Other options for principal components analysis</h3>
 <p>In addition to the options shown above, principal components analysis can be directed with a covariance matrix (<code>viz = "PCV</code>) or correlation matrix (<code>viz = "PCV</code>), and a given chart can be flipped horizontally (with <code>invert.x=TRUE</code>) or vertically (<code>invert.y=TRUE</code>). Additionally, the caption below the chart can be removed using <code>caption=FALSE</code>. Alternatively, setting <code>viz="pca"</code> will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (<code>caption=TRUE</code>), moving the legend or calling on other ggplot2 commands, adding a title (using <code>title="Title Goes Here"</code>), or other matters.</p>
 <div class="cell page-columns page-full">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">scale_size_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8.5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_alpha_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.5</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Larger, solid points can make relationships easier to understand."</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_size_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8.5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.5</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Larger, solid points can make relationships easier to understand."</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Setting alpha values is a good idea when solid points overlap."</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme</span><span class="op">(</span>plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz=pca</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions.</figcaption><p></p>
+<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz=pca</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions—at which point it will become necessary to load ggplot2 explicitly.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -490,8 +492,8 @@ div.csl-indent {
 <span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>           highlight <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>           black <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -506,7 +508,7 @@ div.csl-indent {
 <span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
 <span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
@@ -526,7 +528,7 @@ div.csl-indent {
 <span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
 <span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
@@ -545,7 +547,7 @@ div.csl-indent {
 <span>           highlight.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
 <span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -573,7 +575,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"CA"</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -583,9 +585,9 @@ div.csl-indent {
 <div class="cell page-columns page-full">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">xlim</span><span class="op">(</span><span class="op">-</span><span class="fl">4.5</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">ylim</span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4.5</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
@@ -597,10 +599,10 @@ div.csl-indent {
 <p>Additionally, Ggplot2 makes it easy to add layers, imagining new ways of communicating an idea—for example, by using density overlays to indicate how Hamilton’s typical style is distinct from the style of the disputed papers:</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="va">federalist_mfw</span>, <span class="st">"pca"</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">scale_alpha_manual</span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_density_2d</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density_2d.html">geom_density_2d</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
 <span>                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
@@ -634,7 +636,7 @@ div.csl-indent {
 Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, et al. 2023. <em><span class="nocase">rmarkdown</span>: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
 </div>
 <div id="ref-stylo2gg" class="csl-entry" role="doc-biblioentry">
-Clawson, James M. 2023. <em>Stylo2gg: Visualize Stylometric Data with Ggplot2</em>.
+Clawson, James M. 2023. <em>Stylo2gg: Visualize and Explore Stylo Data with Ggplot2</em> (version 1.0.1). <a href="https://github.com/jmclawson/stylo2gg">https://github.com/jmclawson/stylo2gg</a>.
 </div>
 <div id="ref-stylo" class="csl-entry" role="doc-biblioentry">
 Eder, Maciej, Jan Rybicki, and Mike Kestemont. 2016. <span>“Stylometry with r: A Package for Computational Text Analysis.”</span> <em>R Journal</em> 8 (1): 107–21. <a href="https://journal.r-project.org/archive/2016/RJ-2016-007/index.html">https://journal.r-project.org/archive/2016/RJ-2016-007/index.html</a>.
@@ -677,7 +679,7 @@ Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbo
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 <ol>
-<li id="fn1"><p>This notebook was created using R version 4.2.1 <span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">R Core Team 2022</a>)</span> with the following R packages: ggforce v. 0.4.1 <span class="citation" data-cites="ggforce">(<a href="#ref-ggforce" role="doc-biblioref">Pedersen 2022</a>)</span>, knitr v. 1.42 <span class="citation" data-cites="knitr2014 knitr2015 knitr2023">(<a href="#ref-knitr2014" role="doc-biblioref">Xie 2014</a>, <a href="#ref-knitr2015" role="doc-biblioref">2015</a>, <a href="#ref-knitr2023" role="doc-biblioref">2023</a>)</span>, rmarkdown v. 2.21 <span class="citation" data-cites="rmarkdown2018 rmarkdown2020 rmarkdown2023">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>; <a href="#ref-rmarkdown2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>; <a href="#ref-rmarkdown2023" role="doc-biblioref">Allaire et al. 2023</a>)</span>, stylo v. 0.7.5 <span class="citation" data-cites="stylo">(<a href="#ref-stylo" role="doc-biblioref">Eder, Rybicki, and Kestemont 2016</a>)</span>, stylo2gg v. 1.0 <span class="citation" data-cites="stylo2gg">(<a href="#ref-stylo2gg" role="doc-biblioref">Clawson 2023</a>)</span>, tidyverse v. 2.0.0 <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This notebook was created using R version 4.2.1 <span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">R Core Team 2022</a>)</span> with the following R packages: ggforce v. 0.4.1 <span class="citation" data-cites="ggforce">(<a href="#ref-ggforce" role="doc-biblioref">Pedersen 2022</a>)</span>, knitr v. 1.43 <span class="citation" data-cites="knitr2014 knitr2015 knitr2023">(<a href="#ref-knitr2014" role="doc-biblioref">Xie 2014</a>, <a href="#ref-knitr2015" role="doc-biblioref">2015</a>, <a href="#ref-knitr2023" role="doc-biblioref">2023</a>)</span>, rmarkdown v. 2.22 <span class="citation" data-cites="rmarkdown2018 rmarkdown2020 rmarkdown2023">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>; <a href="#ref-rmarkdown2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>; <a href="#ref-rmarkdown2023" role="doc-biblioref">Allaire et al. 2023</a>)</span>, stylo v. 0.7.5 <span class="citation" data-cites="stylo">(<a href="#ref-stylo" role="doc-biblioref">Eder, Rybicki, and Kestemont 2016</a>)</span>, stylo2gg v. 1.0.1 <span class="citation" data-cites="stylo2gg">(<a href="#ref-stylo2gg" role="doc-biblioref">Clawson 2023</a>)</span>, tidyverse v. 2.0.0 <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>See Schöch’s explanation on Stylo’s issue tracker on GitHub: <a href="https://github.com/computationalstylistics/stylo/issues/53">github.com/computationalstylistics/stylo/issues/53</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>The option to choose the color for loadings was requested by Josef Ginnerskov via Stylo2gg’s issue tracker on GitHub: <a href="https://github.com/jmclawson/stylo2gg/issues/2">github.com/jmclawson/stylo2gg/issues/2</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Mosteller and Wallace write of being surprised that “high-frequency function words did the best job” (304), and their findings of this tendency in English texts have been confirmed many times over since then.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

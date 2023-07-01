@@ -40,7 +40,7 @@ Still, Stylo has some limitations:
 
 The Stylo2gg package, now at version 1.0, has been shared to address these concerns. See [github.com/jmclawson/stylo2gg](https://github.com/jmclawson/stylo2gg) for the code, and install the package using `remotes::install_github("jmclawson/stylo2gg")`.[^1]
 
-[^1]: This notebook was created using R version 4.2.1 [@base] with the following R packages: ggforce v. 0.4.1 [@ggforce], knitr v. 1.42 [@knitr2014; @knitr2015; @knitr2023], rmarkdown v. 2.21 [@rmarkdown2018; @rmarkdown2020; @rmarkdown2023], stylo v. 0.7.5 [@stylo], stylo2gg v. 1.0 [@stylo2gg], tidyverse v. 2.0.0 [@tidyverse].
+[^1]: This notebook was created using R version 4.2.1 [@base] with the following R packages: ggforce v. 0.4.1 [@ggforce], knitr v. 1.43 [@knitr2014; @knitr2015; @knitr2023], rmarkdown v. 2.22 [@rmarkdown2018; @rmarkdown2020; @rmarkdown2023], stylo v. 0.7.5 [@stylo], stylo2gg v. 1.0.1 [@stylo2gg], tidyverse v. 2.0.0 [@tidyverse].
 
 ## Reproducible analyses
 
@@ -295,7 +295,9 @@ federalist_mfw |>
 In addition to the options shown above, principal components analysis can be directed with a covariance matrix (`viz = "PCV`) or correlation matrix (`viz = "PCV`), and a given chart can be flipped horizontally (with `invert.x=TRUE`) or vertically (`invert.y=TRUE`). Additionally, the caption below the chart can be removed using `caption=FALSE`. Alternatively, setting `viz="pca"` will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (`caption=TRUE`), moving the legend or calling on other ggplot2 commands, adding a title (using `title="Title Goes Here"`), or other matters.
 
 ```{r}
-#| fig-cap: 'Setting `viz=pca` rather than the stylo-flavored `viz="PCR"` or `viz="PCV"` prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions.'
+#| fig-cap: 'Setting `viz=pca` rather than the stylo-flavored `viz="PCR"` or `viz="PCV"` prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions---at which point it will become necessary to load ggplot2 explicitly.'
+
+library(ggplot2)
 
 federalist_mfw |> 
   stylo2gg(viz = "pca") + 
@@ -485,3 +487,4 @@ Many other extensions to Ggplot2 are available.[^7] Although not all are appropr
 ## Conclusions
 
 Written by a user to address specific needs of users when visualizing with Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.
+
