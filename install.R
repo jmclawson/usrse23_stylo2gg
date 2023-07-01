@@ -1,4 +1,6 @@
 install.packages("stringr")
 install.packages("knitr")
+install.packages("ggforce")
+install.packages("concaveman")
 remotes::install_github("computationalstylistics/stylo")
 remotes::install_github("jmclawson/stylo2gg")
