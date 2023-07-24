@@ -453,8 +453,8 @@ In addition to the options accommodated within Stylo2gg, visualizations benefit 
 
 federalist_mfw |> 
   stylo2gg() + 
-  xlim(-4.5,1) + 
-  ylim(-0.5,NA) + 
+  xlim(-1, 4.5) + 
+  ylim(NA, 0.5) + 
   theme_minimal()
 ```
 
