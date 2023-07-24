@@ -449,7 +449,7 @@ federalist_mfw |>
 In addition to the options accommodated within Stylo2gg, visualizations benefit from the conversion to the Ggplot2 system over base graphics. Options like theming, transparency, and symbol shape and size behave as they do with any other Ggplot2 output, potentially matching other visualizations in a report and giving one access to many useful functions for communicating findings.
 
 ```{r}
-#| fig-cap: "Changing `ylim()` and `xlim()` allows you to zoom in on a particular region."
+#| fig-cap: "Changing `ylim()` and `xlim()` allows zooming in on a particular region."
 
 federalist_mfw |> 
   stylo2gg() + 
