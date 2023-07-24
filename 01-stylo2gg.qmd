@@ -36,11 +36,11 @@ Still, Stylo has some limitations:
 
 2.  While exploring a corpus, users are faced with the burden of rerunning an analysis for each small change of visualization.
 
-3.  The use of base graphics may not match other figures in a project that uses Ggplot2.
+3.  The graphics may not match other figures in a project that uses Ggplot2.
 
-The Stylo2gg package, now at version 1.0, has been shared to address these concerns. See [github.com/jmclawson/stylo2gg](https://github.com/jmclawson/stylo2gg) for the code, and install the package using `remotes::install_github("jmclawson/stylo2gg")`.[^1]
+The Stylo2gg package, now at version 1.0.2, has been shared to address these concerns. See [github.com/jmclawson/stylo2gg](https://github.com/jmclawson/stylo2gg) for the code, and install the package using `remotes::install_github("jmclawson/stylo2gg")`.[^1]
 
-[^1]: This notebook was created using R version 4.2.1 [@base] with the following R packages: ggforce v. 0.4.1 [@ggforce], knitr v. 1.43 [@knitr2014; @knitr2015; @knitr2023], rmarkdown v. 2.22 [@rmarkdown2018; @rmarkdown2020; @rmarkdown2023], stylo v. 0.7.5 [@stylo], stylo2gg v. 1.0.1 [@stylo2gg], tidyverse v. 2.0.0 [@tidyverse].
+[^1]: This notebook was created using R version 4.2.1 [@base] with the following R packages: Ggforce v. 0.4.1 [@ggforce], Knitr v. 1.43 [@knitr2014; @knitr2015; @knitr2023], Rmarkdown v. 2.22 [@rmarkdown2018; @rmarkdown2020; @rmarkdown2023], Stylo v. 0.7.5 [@stylo], Stylo2gg v. 1.0.2 [@stylo2gg], Tidyverse v. 2.0.0 [@tidyverse].
 
 ## Reproducible analyses
 
@@ -57,13 +57,13 @@ library(stylo)
 library(stylo2gg)
 
 my_data1 <- stylo(
-  gui=FALSE,
+  gui = FALSE,
   corpus.dir = "data/federalist/",
-  display.on.screen=FALSE,
-  culling.max=75,
-  culling.min=75,
-  mfw.min=900,
-  mfw.max=900)
+  display.on.screen = FALSE,
+  culling.max = 75,
+  culling.min = 75,
+  mfw.min = 900,
+  mfw.max = 900)
 
 stylo_log(my_data1)
 ```
@@ -84,16 +84,16 @@ The only differences between `my_data1` and `my_data2` are in the objects' saved
 Lastly, if `stylo_replicate()` is used without a `date_time` argument, it will act like `stylo()`, with the added benefit of automatically calling `stylo_log()` in the same step:
 
 ```{r}
-my_data3 <- stylo_replicate(gui=FALSE,
+my_data3 <- stylo_replicate(gui = FALSE,
   corpus.dir = "data/federalist/",
-  display.on.screen=FALSE,
-  culling.max=75,
-  culling.min=75,
-  mfw.min=900,
-  mfw.max=900)
+  display.on.screen = FALSE,
+  culling.max = 75,
+  culling.min = 75,
+  mfw.min = 900,
+  mfw.max = 900)
 ```
 
-Here, the objects `my_data1` (created by `stylo::stylo()` before being logged by `stylo_log()`), `my_data2` (replicated by `stylo2gg::stylo_replicate()`), and `my_data3` (created and logged via `stylo_replicate()`) are almost identical. This makes it easier to keep track of the processes used in analysis, providing the "documentation mode" and "replication mode" Schöch calls for.
+Here, the objects `my_data1` (created by `stylo::stylo()` before being logged by `stylo_log()`), `my_data2` (replicated by `stylo_replicate()`), and `my_data3` (created and logged via `stylo_replicate()`) are almost identical. This makes it easier to keep track of the processes used in analysis, providing the "documentation mode" and "replication mode" Schöch calls for.
 
 ## Principal components
 
@@ -107,18 +107,18 @@ One common method for understanding stylometric relationships among texts is to 
 library(stylo)
 
 federalist_mfw <- 
-  stylo(gui=FALSE,
+  stylo(gui = FALSE,
         corpus.dir = "data/federalist/",
-        analysis.type="PCR",
+        analysis.type = "PCR",
         pca.visual.flavour = "symbols",
-        analyzed.features="w",
-        ngram.size=1,
-        display.on.screen=TRUE,
-        sampling="no.sampling",
-        culling.max=75,
-        culling.min=75,
-        mfw.min=900,
-        mfw.max=900)
+        analyzed.features = "w",
+        ngram.size = 1,
+        display.on.screen = TRUE,
+        sampling = "no.sampling",
+        culling.max = 75,
+        culling.min = 75,
+        mfw.min = 900,
+        mfw.max = 900)
 ```
 
 As the figure suggests, most of these documents were eventually known to be written by Alexander Hamilton, John Jay, and James Madison, shown categorized here by their last names. Although most had known authorship, some were disputed or had joint authorship, shown here by the "NA" category. From their placement along the X- and Y-axes, the disputed papers seem closest in style to those by James Madison. The analysis here uses some of the same measures Frederick Mosteller and David Wallace famously used in their 1963 study, and it arrives at similar conclusions, but the ease and usefulness of tools like Stylo means that preparing this quick visualization demands far less time and sweat.
@@ -169,7 +169,7 @@ In addition to recreating some of the visualizations offered by Stylo, Stylo2gg 
 federalist_mfw |> 
   stylo2gg(shapes = FALSE, 
            labeling = 2,
-           highlight = c(3,4))
+           highlight = c(3, 4))
 ```
 
 ### Overlay loadings
@@ -194,7 +194,7 @@ Alternatively, show loadings by nearest principal components, by the middle poin
 federalist_mfw |> 
   stylo2gg(shapes = FALSE, 
            labeling = 2,
-           select.loadings = list(c(-4,-6),
+           select.loadings = list(c(-4, -6),
                                   "Madison",
                                   call("word", 
                                        c("the", "a", "an"))))
@@ -292,19 +292,22 @@ federalist_mfw |>
 
 ### Other options for principal components analysis
 
-In addition to the options shown above, principal components analysis can be directed with a covariance matrix (`viz = "PCV`) or correlation matrix (`viz = "PCV`), and a given chart can be flipped horizontally (with `invert.x=TRUE`) or vertically (`invert.y=TRUE`). Additionally, the caption below the chart can be removed using `caption=FALSE`. Alternatively, setting `viz="pca"` will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (`caption=TRUE`), moving the legend or calling on other ggplot2 commands, adding a title (using `title="Title Goes Here"`), or other matters.
+In addition to the options shown above, principal components analysis can be directed with a covariance matrix (`viz="PCV"`) or correlation matrix (`viz="PCV"`), and a given chart can be flipped horizontally (with `invert.x=TRUE`) or vertically (`invert.y=TRUE`). Additionally, the caption below the chart can be removed using `caption=FALSE`. Alternatively, setting `viz="pca"` will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (`caption=TRUE`), moving the legend or calling on other Ggplot2 commands, adding a title (using `title="Title Goes Here"`), or other matters.
 
 ```{r}
-#| fig-cap: 'Setting `viz=pca` rather than the stylo-flavored `viz="PCR"` or `viz="PCV"` prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions---at which point it will become necessary to load ggplot2 explicitly.'
+#| message: false
+#| fig-cap: 'Setting `viz="pca"` rather than the stylo-flavored `viz="PCR"` or `viz="PCV"` prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by Ggplot2 functions---at which point it will become necessary to load Ggplot2 explicitly. The example here also shows the utility of the Stylo2gg function for adjusting labels, `rename_category()`.'
 
 library(ggplot2)
 
 federalist_mfw |> 
+  rename_category("NA", "unknown") |> 
   stylo2gg(viz = "pca") + 
   theme(legend.position = "bottom") + 
-  scale_size_manual(values = c(8.5,9,7,10)) +
   scale_shape_manual(values = 15:18) +
-  scale_alpha_manual(values = rep(.5,4)) + 
+  scale_size_manual(values = c(8.5, 9, 7, 10)) +
+  scale_alpha_manual(values = rep(.5, 4)) + 
+  scale_color_manual(values = c("#E69F00", "#56B4E9", "#009E73", "#CC79A7")) +
   labs(title = "Larger, solid points can make relationships easier to understand.",
        subtitle = "Setting alpha values is a good idea when solid points overlap.") +
   theme(plot.title.position = "plot")
@@ -319,18 +322,18 @@ In addition to two-dimensional relationships with principal components, Stylo ca
 #| fig.height: 10.0
 #| cache: false
 
-stylo(gui=FALSE,
+stylo(gui = FALSE,
       corpus.dir = "data/federalist/",
-      custom.graph.title="Federalist Papers",
-      analysis.type="CA",
-      analyzed.features="w",
-      ngram.size=1,
-      display.on.screen=TRUE,
-      sampling="no.sampling",
-      culling.max=75,
-      culling.min=75,
-      mfw.min=900,
-      mfw.max=900)
+      custom.graph.title = "Federalist Papers",
+      analysis.type = "CA",
+      analyzed.features = "w",
+      ngram.size = 1,
+      display.on.screen = TRUE,
+      sampling = "no.sampling",
+      culling.max = 75,
+      culling.min = 75,
+      mfw.min = 900,
+      mfw.max = 900)
 ```
 
 Using the same `federalist_mfw` object saved earlier, Stylo2gg will create a similar cluster analysis using the option `viz="CA"`:
@@ -390,7 +393,7 @@ By default, Stylo2gg will draw a single box, even if texts belonging to a catego
 federalist_mfw |>  
   stylo2gg(viz = "hc",
            shapes = FALSE,
-           highlight=1,
+           highlight = 1,
            highlight.nudge = 0.4,
            linkage = "ward.D2",
            distance = "euclidean") +
@@ -405,7 +408,7 @@ Setting `highlight.single=FALSE` will instead draw multiple boxes while consolid
 federalist_mfw |> 
   stylo2gg(viz = "hc",
            shapes = FALSE,
-           highlight=1,
+           highlight = 1,
            highlight.nudge = 0.4,
            highlight.single = FALSE,
            linkage = "ward.D2",
@@ -434,6 +437,8 @@ federalist_mfw |>
 Finally, set `horiz=FALSE` to display the cluster analysis vertically instead of horizontally:
 
 ```{r}
+#| column: page-right
+#| fig.width: 11.0
 federalist_mfw |> 
   stylo2gg(viz = "CA", horiz = FALSE) +
   theme(legend.position = "top")
@@ -459,7 +464,7 @@ Additionally, Ggplot2 makes it easy to add layers, imagining new ways of communi
 #| fig-cap: "The plot created by `stylo2gg()` passes along the variable `class` used for the categorical grouping."
 
 stylo2gg(federalist_mfw, "pca", legend = FALSE) + 
-  scale_alpha_manual(values=rep(0, 4)) +
+  scale_alpha_manual(values = rep(0, 4)) +
   geom_density_2d(aes(color = class),
                   show.legend = FALSE) + 
   theme_minimal()
@@ -471,11 +476,11 @@ Most usefully, the conversion to Ggplot2 allows visualizations to benefit from a
 library(ggforce)
 
 stylo2gg(federalist_mfw, "pca")  +
-  geom_mark_hull(aes(fill=class, 
-                     color=class)) + 
-  geom_mark_hull(aes(group=class, 
-                     label=class, 
-                     filter=class %in% c("Madison","NA")),
+  geom_mark_hull(aes(fill = class, 
+                     color = class)) + 
+  geom_mark_hull(aes(group = class, 
+                     label = class, 
+                     filter = class %in% c("Madison","NA")),
                  con.cap = 0,
                  show.legend = FALSE)
 ```
@@ -486,5 +491,5 @@ Many other extensions to Ggplot2 are available.[^7] Although not all are appropr
 
 ## Conclusions
 
-Written by a user to address specific needs of users when visualizing with Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.
+Written by a user to improve reproducibility and customization of two types of visualization when using Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.
 

@@ -183,9 +183,9 @@ div.csl-indent {
 <ol type="1">
 <li><p>It can be hard to keep track of analyses when trying out many things in a session.</p></li>
 <li><p>While exploring a corpus, users are faced with the burden of rerunning an analysis for each small change of visualization.</p></li>
-<li><p>The use of base graphics may not match other figures in a project that uses Ggplot2.</p></li>
+<li><p>The graphics may not match other figures in a project that uses Ggplot2.</p></li>
 </ol>
-<p>The Stylo2gg package, now at version 1.0, has been shared to address these concerns. See <a href="https://github.com/jmclawson/stylo2gg">github.com/jmclawson/stylo2gg</a> for the code, and install the package using <code>remotes::install_github("jmclawson/stylo2gg")</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The Stylo2gg package, now at version 1.0.2, has been shared to address these concerns. See <a href="https://github.com/jmclawson/stylo2gg">github.com/jmclawson/stylo2gg</a> for the code, and install the package using <code>remotes::install_github("jmclawson/stylo2gg")</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section><section id="reproducible-analyses" class="level2"><h2 class="anchored" data-anchor-id="reproducible-analyses">Reproducible analyses</h2>
 <p>Christof Schöch documented some of Stylo’s shortcomings for documenting reproducible analyses on the package’s issues tracker.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Among them are that the parameters get lost when working from the terminal and that files get overwritten each time the <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> function is called. To address these concerns, Stylo2gg adds two functions.</p>
 <section id="logging-an-analysis" class="level3"><h3 class="anchored" data-anchor-id="logging-an-analysis">Logging an analysis</h3>
@@ -195,13 +195,13 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stylo2gg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">my_data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span></span>
-<span>  gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  gui <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
-<span>  display.on.screen<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>  culling.max<span class="op">=</span><span class="fl">75</span>,</span>
-<span>  culling.min<span class="op">=</span><span class="fl">75</span>,</span>
-<span>  mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
-<span>  mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span>
+<span>  display.on.screen <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  culling.max <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>  culling.min <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>  mfw.min <span class="op">=</span> <span class="fl">900</span>,</span>
+<span>  mfw.max <span class="op">=</span> <span class="fl">900</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log</a></span><span class="op">(</span><span class="va">my_data1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -215,33 +215,33 @@ div.csl-indent {
 <p>The only differences between <code>my_data1</code> and <code>my_data2</code> are in the objects’ saved <em>call</em>. The object created by <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code> records only the parameters listed above, but the object created with <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code> makes the default settings explicit.</p>
 <p>Lastly, if <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code> is used without a <code>date_time</code> argument, it will act like <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo()</a></code>, with the added benefit of automatically calling <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code> in the same step:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_data3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_data3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate</a></span><span class="op">(</span>gui <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
-<span>  display.on.screen<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>  culling.max<span class="op">=</span><span class="fl">75</span>,</span>
-<span>  culling.min<span class="op">=</span><span class="fl">75</span>,</span>
-<span>  mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
-<span>  mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  display.on.screen <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  culling.max <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>  culling.min <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>  mfw.min <span class="op">=</span> <span class="fl">900</span>,</span>
+<span>  mfw.max <span class="op">=</span> <span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, the objects <code>my_data1</code> (created by <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo::stylo()</a></code> before being logged by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code>), <code>my_data2</code> (replicated by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo2gg::stylo_replicate()</a></code>), and <code>my_data3</code> (created and logged via <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code>) are almost identical. This makes it easier to keep track of the processes used in analysis, providing the “documentation mode” and “replication mode” Schöch calls for.</p>
+<p>Here, the objects <code>my_data1</code> (created by <code><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo::stylo()</a></code> before being logged by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_log.html">stylo_log()</a></code>), <code>my_data2</code> (replicated by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code>), and <code>my_data3</code> (created and logged via <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo_replicate.html">stylo_replicate()</a></code>) are almost identical. This makes it easier to keep track of the processes used in analysis, providing the “documentation mode” and “replication mode” Schöch calls for.</p>
 </section></section><section id="principal-components" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="principal-components">Principal components</h2>
 <p>One common method for understanding stylometric relationships among texts is to visualize a principal components analysis in a two-dimensional space. To do this, typically the first principal component is projected on the X-axis, and the second principal component is projected on the Y-axis. In addition to measuring word frequencies among all documents in a corpus, the Stylo package shows a visualization of such an analysis, projecting many documents into a chart showing these kinds of coordinates. As an example, here’s the code and output showing similarities among the eighty-five <em>Federalist Papers</em>, originally published pseudonymously in 1788:</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/computationalstylistics/stylo">stylo</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">federalist_mfw</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>        corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
-<span>        analysis.type<span class="op">=</span><span class="st">"PCR"</span>,</span>
+<span>        analysis.type <span class="op">=</span> <span class="st">"PCR"</span>,</span>
 <span>        pca.visual.flavour <span class="op">=</span> <span class="st">"symbols"</span>,</span>
-<span>        analyzed.features<span class="op">=</span><span class="st">"w"</span>,</span>
-<span>        ngram.size<span class="op">=</span><span class="fl">1</span>,</span>
-<span>        display.on.screen<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>        sampling<span class="op">=</span><span class="st">"no.sampling"</span>,</span>
-<span>        culling.max<span class="op">=</span><span class="fl">75</span>,</span>
-<span>        culling.min<span class="op">=</span><span class="fl">75</span>,</span>
-<span>        mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
-<span>        mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>        analyzed.features <span class="op">=</span> <span class="st">"w"</span>,</span>
+<span>        ngram.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        display.on.screen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        sampling <span class="op">=</span> <span class="st">"no.sampling"</span>,</span>
+<span>        culling.max <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>        culling.min <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>        mfw.min <span class="op">=</span> <span class="fl">900</span>,</span>
+<span>        mfw.max <span class="op">=</span> <span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/introstylo1-1.png" class="img-fluid figure-img" width="672"></p>
@@ -299,7 +299,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>           highlight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>           highlight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
@@ -329,7 +329,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>           labeling <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>           select.loadings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="op">-</span><span class="fl">6</span><span class="op">)</span>,</span>
+<span>           select.loadings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">6</span><span class="op">)</span>,</span>
 <span>                                  <span class="st">"Madison"</span>,</span>
 <span>                                  <span class="fu"><a href="https://rdrr.io/r/base/call.html">call</a></span><span class="op">(</span><span class="st">"word"</span>, </span>
 <span>                                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"a"</span>, <span class="st">"an"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -433,23 +433,25 @@ div.csl-indent {
 </div>
 </div>
 </section><section id="other-options-for-principal-components-analysis" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="other-options-for-principal-components-analysis">Other options for principal components analysis</h3>
-<p>In addition to the options shown above, principal components analysis can be directed with a covariance matrix (<code>viz = "PCV</code>) or correlation matrix (<code>viz = "PCV</code>), and a given chart can be flipped horizontally (with <code>invert.x=TRUE</code>) or vertically (<code>invert.y=TRUE</code>). Additionally, the caption below the chart can be removed using <code>caption=FALSE</code>. Alternatively, setting <code>viz="pca"</code> will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (<code>caption=TRUE</code>), moving the legend or calling on other ggplot2 commands, adding a title (using <code>title="Title Goes Here"</code>), or other matters.</p>
+<p>In addition to the options shown above, principal components analysis can be directed with a covariance matrix (<code>viz="PCV"</code>) or correlation matrix (<code>viz="PCV"</code>), and a given chart can be flipped horizontally (with <code>invert.x=TRUE</code>) or vertically (<code>invert.y=TRUE</code>). Additionally, the caption below the chart can be removed using <code>caption=FALSE</code>. Alternatively, setting <code>viz="pca"</code> will choose a minimal set of changes from which one might choose to build up selected additions: turning on captions (<code>caption=TRUE</code>), moving the legend or calling on other Ggplot2 commands, adding a title (using <code>title="Title Goes Here"</code>), or other matters.</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/rename_category.html">rename_category</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"unknown"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_size_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8.5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.5</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_size_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8.5</span>, <span class="fl">9</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span>, <span class="st">"#CC79A7"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Larger, solid points can make relationships easier to understand."</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Setting alpha values is a good idea when solid points overlap."</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz=pca</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by ggplot2 functions—at which point it will become necessary to load ggplot2 explicitly.</figcaption><p></p>
+<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz="pca"</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by Ggplot2 functions—at which point it will become necessary to load Ggplot2 explicitly. The example here also shows the utility of the Stylo2gg function for adjusting labels, <code><a href="https://rdrr.io/pkg/stylo2gg/man/rename_category.html">rename_category()</a></code>.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -457,18 +459,18 @@ div.csl-indent {
 </section></section><section id="hierarchical-clusters" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="hierarchical-clusters">Hierarchical clusters</h2>
 <p>In addition to two-dimensional relationships with principal components, Stylo can also show a dendrogram for cluster analysis, showing texts’ relationships based on their distance to each other. The resulting dendrogram shows texts in branches splitting off from one another at points that correspond to distance. In the orientation shown below, when two texts or groups of texts seem to have greater stylistic similarity, their branches will join nearer to the right side of the chart—nearer to a distance of zero. As the texts show greater dissimilarity, their branches will connect closer to the left side of the chart.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo/man/stylo.html">stylo</a></span><span class="op">(</span>gui <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      corpus.dir <span class="op">=</span> <span class="st">"data/federalist/"</span>,</span>
-<span>      custom.graph.title<span class="op">=</span><span class="st">"Federalist Papers"</span>,</span>
-<span>      analysis.type<span class="op">=</span><span class="st">"CA"</span>,</span>
-<span>      analyzed.features<span class="op">=</span><span class="st">"w"</span>,</span>
-<span>      ngram.size<span class="op">=</span><span class="fl">1</span>,</span>
-<span>      display.on.screen<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>      sampling<span class="op">=</span><span class="st">"no.sampling"</span>,</span>
-<span>      culling.max<span class="op">=</span><span class="fl">75</span>,</span>
-<span>      culling.min<span class="op">=</span><span class="fl">75</span>,</span>
-<span>      mfw.min<span class="op">=</span><span class="fl">900</span>,</span>
-<span>      mfw.max<span class="op">=</span><span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>      custom.graph.title <span class="op">=</span> <span class="st">"Federalist Papers"</span>,</span>
+<span>      analysis.type <span class="op">=</span> <span class="st">"CA"</span>,</span>
+<span>      analyzed.features <span class="op">=</span> <span class="st">"w"</span>,</span>
+<span>      ngram.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      display.on.screen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      sampling <span class="op">=</span> <span class="st">"no.sampling"</span>,</span>
+<span>      culling.max <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>      culling.min <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>      mfw.min <span class="op">=</span> <span class="fl">900</span>,</span>
+<span>      mfw.max <span class="op">=</span> <span class="fl">900</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01-stylo2gg_files/figure-html/stylo_hc-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -524,7 +526,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
 <span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>           highlight<span class="op">=</span><span class="fl">1</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
 <span>           distance <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -542,7 +544,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"hc"</span>,</span>
 <span>           shapes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>           highlight<span class="op">=</span><span class="fl">1</span>,</span>
+<span>           highlight <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>           highlight.nudge <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>           highlight.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>           linkage <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
@@ -570,14 +572,14 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="vertical-dendrograms" class="level3"><h3 class="anchored" data-anchor-id="vertical-dendrograms">Vertical dendrograms</h3>
+</section><section id="vertical-dendrograms" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="vertical-dendrograms">Vertical dendrograms</h3>
 <p>Finally, set <code>horiz=FALSE</code> to display the cluster analysis vertically instead of horizontally:</p>
-<div class="cell">
+<div class="cell page-columns page-full">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">federalist_mfw</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span>viz <span class="op">=</span> <span class="st">"CA"</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display column-page-right">
+<p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="1056"></p>
 </div>
 </div>
 </section></section><section id="ggplot2-features" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="ggplot2-features">Ggplot2 features</h2>
@@ -599,7 +601,7 @@ div.csl-indent {
 <p>Additionally, Ggplot2 makes it easy to add layers, imagining new ways of communicating an idea—for example, by using density overlays to indicate how Hamilton’s typical style is distinct from the style of the disputed papers:</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="va">federalist_mfw</span>, <span class="st">"pca"</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_alpha_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density_2d.html">geom_density_2d</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
 <span>                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -616,11 +618,11 @@ div.csl-indent {
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com">ggforce</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg</a></span><span class="op">(</span><span class="va">federalist_mfw</span>, <span class="st">"pca"</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">class</span>, </span>
-<span>                     color<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group<span class="op">=</span><span class="va">class</span>, </span>
-<span>                     label<span class="op">=</span><span class="va">class</span>, </span>
-<span>                     filter<span class="op">=</span><span class="va">class</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Madison"</span>,<span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">class</span>, </span>
+<span>                     color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html">geom_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">class</span>, </span>
+<span>                     label <span class="op">=</span> <span class="va">class</span>, </span>
+<span>                     filter <span class="op">=</span> <span class="va">class</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Madison"</span>,<span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                 con.cap <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                 show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -629,7 +631,7 @@ div.csl-indent {
 </div>
 <p>Many other extensions to Ggplot2 are available.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Although not all are appropriate for stylometry, and only some will be compatible with Stylo2gg’s data structure, it’s promising to see some like Ggforce working instantly.</p>
 </section><section id="conclusions" class="level2"><h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Written by a user to address specific needs of users when visualizing with Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.</p>
+<p>Written by a user to improve reproducibility and customization of two types of visualization when using Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.</p>
 
 </section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-rmarkdown2023" class="csl-entry" role="doc-biblioentry">
@@ -679,7 +681,7 @@ Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbo
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 <ol>
-<li id="fn1"><p>This notebook was created using R version 4.2.1 <span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">R Core Team 2022</a>)</span> with the following R packages: ggforce v. 0.4.1 <span class="citation" data-cites="ggforce">(<a href="#ref-ggforce" role="doc-biblioref">Pedersen 2022</a>)</span>, knitr v. 1.43 <span class="citation" data-cites="knitr2014 knitr2015 knitr2023">(<a href="#ref-knitr2014" role="doc-biblioref">Xie 2014</a>, <a href="#ref-knitr2015" role="doc-biblioref">2015</a>, <a href="#ref-knitr2023" role="doc-biblioref">2023</a>)</span>, rmarkdown v. 2.22 <span class="citation" data-cites="rmarkdown2018 rmarkdown2020 rmarkdown2023">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>; <a href="#ref-rmarkdown2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>; <a href="#ref-rmarkdown2023" role="doc-biblioref">Allaire et al. 2023</a>)</span>, stylo v. 0.7.5 <span class="citation" data-cites="stylo">(<a href="#ref-stylo" role="doc-biblioref">Eder, Rybicki, and Kestemont 2016</a>)</span>, stylo2gg v. 1.0.1 <span class="citation" data-cites="stylo2gg">(<a href="#ref-stylo2gg" role="doc-biblioref">Clawson 2023</a>)</span>, tidyverse v. 2.0.0 <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This notebook was created using R version 4.2.1 <span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">R Core Team 2022</a>)</span> with the following R packages: Ggforce v. 0.4.1 <span class="citation" data-cites="ggforce">(<a href="#ref-ggforce" role="doc-biblioref">Pedersen 2022</a>)</span>, Knitr v. 1.43 <span class="citation" data-cites="knitr2014 knitr2015 knitr2023">(<a href="#ref-knitr2014" role="doc-biblioref">Xie 2014</a>, <a href="#ref-knitr2015" role="doc-biblioref">2015</a>, <a href="#ref-knitr2023" role="doc-biblioref">2023</a>)</span>, Rmarkdown v. 2.22 <span class="citation" data-cites="rmarkdown2018 rmarkdown2020 rmarkdown2023">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>; <a href="#ref-rmarkdown2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>; <a href="#ref-rmarkdown2023" role="doc-biblioref">Allaire et al. 2023</a>)</span>, Stylo v. 0.7.5 <span class="citation" data-cites="stylo">(<a href="#ref-stylo" role="doc-biblioref">Eder, Rybicki, and Kestemont 2016</a>)</span>, Stylo2gg v. 1.0.2 <span class="citation" data-cites="stylo2gg">(<a href="#ref-stylo2gg" role="doc-biblioref">Clawson 2023</a>)</span>, Tidyverse v. 2.0.0 <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>See Schöch’s explanation on Stylo’s issue tracker on GitHub: <a href="https://github.com/computationalstylistics/stylo/issues/53">github.com/computationalstylistics/stylo/issues/53</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>The option to choose the color for loadings was requested by Josef Ginnerskov via Stylo2gg’s issue tracker on GitHub: <a href="https://github.com/jmclawson/stylo2gg/issues/2">github.com/jmclawson/stylo2gg/issues/2</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Mosteller and Wallace write of being surprised that “high-frequency function words did the best job” (304), and their findings of this tendency in English texts have been confirmed many times over since then.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
