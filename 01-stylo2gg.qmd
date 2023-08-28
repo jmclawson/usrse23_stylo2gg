@@ -493,3 +493,5 @@ Many other extensions to Ggplot2 are available.[^7] Although not all are appropr
 
 Written by a user to improve reproducibility and customization of two types of visualization when using Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.
 
+## Presented at {.appendix}
+USRSE2023, Chicago, IL, October 16--18, 2023.

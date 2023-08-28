@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.97">
+<meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="James M. Clawson">
 <title>Stylo2gg: Visualizing reproducible stylometric analysis</title>
@@ -15,9 +15,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -44,48 +45,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -99,8 +71,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 <script src="01-stylo2gg_files/libs/clipboard/clipboard.min.js"></script>
 <script src="01-stylo2gg_files/libs/quarto-html/quarto.js"></script>
@@ -152,6 +123,7 @@ div.csl-indent {
 </li>
   <li><a href="#ggplot2-features" id="toc-ggplot2-features" class="nav-link" data-scroll-target="#ggplot2-features">Ggplot2 features</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  
   </ul></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -245,8 +217,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/introstylo1-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">This visualization places each part by its frequencies of 120 of the most frequent words—chosen from among words appearing in at least three-fourths of all papers The chart shows that the texts whose authorship had once been in question, shown here in green crosses, have frequency distributions most similar to those by James Madison, shown here with red Xs.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">This visualization places each part by its frequencies of 120 of the most frequent words—chosen from among words appearing in at least three-fourths of all papers The chart shows that the texts whose authorship had once been in question, shown here in green crosses, have frequency distributions most similar to those by James Madison, shown here with red Xs.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -259,8 +230,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Using selected <code>ggplot2</code> defaults for shapes and colors, the visualization created by <code>stylo2gg</code> nevertheless shows the same patterns of style, presenting a figure drawn from the same principal components. Here, the disputed papers are marked by purple diamonds, and they seem closest in style to the parts known to be by Madison, marked by blue Xs.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Using selected <code>ggplot2</code> defaults for shapes and colors, the visualization created by <code>stylo2gg</code> nevertheless shows the same patterns of style, presenting a figure drawn from the same principal components. Here, the disputed papers are marked by purple diamonds, and they seem closest in style to the parts known to be by Madison, marked by blue Xs.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -274,8 +244,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">The option <code>shapes=FALSE</code> turns off the symbols that would otherwise also appear; simultaneously, the option <code>labeling=2</code> selects the second metadata element from corpus filenames—in this case the number of the specific paper—as a label for the visualization. When a chosen label consists of nothing but numbers, as it does here, the legend key changes to a number sign. If a label includes any other characters, it becomes the letter ‘a’, Ggplot2’s default key for showing color of text.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">The option <code>shapes=FALSE</code> turns off the symbols that would otherwise also appear; simultaneously, the option <code>labeling=2</code> selects the second metadata element from corpus filenames—in this case the number of the specific paper—as a label for the visualization. When a chosen label consists of nothing but numbers, as it does here, the legend key changes to a number sign. If a label includes any other characters, it becomes the letter ‘a’, Ggplot2’s default key for showing color of text.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -288,8 +257,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">The option <code>labeling=0</code> shows entire file names for items in the corpus, excepting the extension. This option also turns off the legend by default, since that information is already indicated.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">The option <code>labeling=0</code> shows entire file names for items in the corpus, excepting the extension. This option also turns off the legend by default, since that information is already indicated.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -303,8 +271,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">The <code>highlight</code> option accepts numbers corresponding to categories shown on the legend. Highlights on principal components charts can include 1 or more categories, but highlights for hierarchical clusters can only accept one category. To draw these loops around points on a scatterplot, stylogg relies on the <a href="https://cran.r-project.org/web/packages/ggalt/index.html">ggalt</a> package.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">The <code>highlight</code> option accepts numbers corresponding to categories shown on the legend. Highlights on principal components charts can include 1 or more categories, but highlights for hierarchical clusters can only accept one category. To draw these loops around points on a scatterplot, stylogg relies on the <a href="https://cran.r-project.org/web/packages/ggalt/index.html">ggalt</a> package.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -319,8 +286,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Set <code>top.loadings</code> to a number <code>n</code> to overlay loadings for the most frequent words, from 1 to <code>n</code>. This chart shows loadings and scaled vectors for the 10 most frequent words.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Set <code>top.loadings</code> to a number <code>n</code> to overlay loadings for the most frequent words, from 1 to <code>n</code>. This chart shows loadings and scaled vectors for the 10 most frequent words.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -336,8 +302,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">In a list form, the <code>select.loadings</code> option accepts coordinates, category names, and words. Here, <code>c(-4,-6)</code> indicates that the code should find the loading nearest to -4 on the first principal component and -6 on the second principal component; <code>"Madison"</code> indicates that the function should find coordinates at the middle of papers by Madison and then find the loading nearest those coordinates; and three articles “the,” “a,” and “an” indicate, using <code>call("word")</code>, that these specific loadings should be shown.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">In a list form, the <code>select.loadings</code> option accepts coordinates, category names, and words. Here, <code>c(-4,-6)</code> indicates that the code should find the loading nearest to -4 on the first principal component and -6 on the second principal component; <code>"Madison"</code> indicates that the function should find coordinates at the middle of papers by Madison and then find the loading nearest those coordinates; and three articles “the,” “a,” and “an” indicate, using <code>call("word")</code>, that these specific loadings should be shown.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -351,8 +316,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Set <code>loadings.line.color</code> and <code>loadings.word.color</code> to change the coloring of loadings. Optionally toggle <code>loadings.upper</code> to show uppercase letters, or set <code>loadings.spacer</code> to define the character shown in lieu of spaces when measuring bigrams and other n-grams.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Set <code>loadings.line.color</code> and <code>loadings.word.color</code> to change the coloring of loadings. Optionally toggle <code>loadings.upper</code> to show uppercase letters, or set <code>loadings.spacer</code> to define the character shown in lieu of spaces when measuring bigrams and other n-grams.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -370,8 +334,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Selecting a subset of features will also cause the caption to update from “120 MFW” to “42 W,” reflecting the changed number of features and the type: they are no longer most frequent words (MFW) but are now just words (W).</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Selecting a subset of features will also cause the caption to update from “120 MFW” to “42 W,” reflecting the changed number of features and the type: they are no longer most frequent words (MFW) but are now just words (W).</figcaption></figure>
 </div>
 </div>
 </div>
@@ -393,8 +356,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Setting <code>num.features</code> to 50 will limit a chart to the 50 most frequent words. The caption updates to reflect this choice.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Setting <code>num.features</code> to 50 will limit a chart to the 50 most frequent words. The caption updates to reflect this choice.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -418,8 +380,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Defining <code>withholding</code> makes it possible to ignore certain classes of texts from the underlying projection.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Defining <code>withholding</code> makes it possible to ignore certain classes of texts from the underlying projection.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -451,8 +412,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Setting <code>viz="pca"</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by Ggplot2 functions—at which point it will become necessary to load Ggplot2 explicitly. The example here also shows the utility of the Stylo2gg function for adjusting labels, <code><a href="https://rdrr.io/pkg/stylo2gg/man/rename_category.html">rename_category()</a></code>.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Setting <code>viz="pca"</code> rather than the stylo-flavored <code>viz="PCR"</code> or <code>viz="PCV"</code> prepares a minimal visualization of a principal components analysis derived from a correlation matrix. This might be a good setting to use if further customizing the figure by adding refinements provided by Ggplot2 functions—at which point it will become necessary to load Ggplot2 explicitly. The example here also shows the utility of the Stylo2gg function for adjusting labels, <code><a href="https://rdrr.io/pkg/stylo2gg/man/rename_category.html">rename_category()</a></code>.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -482,8 +442,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">To prepare dendrograms for display, stylo2gg uses <a href="https://cran.r-project.org/web/packages/dendextend/index.html">dendextend</a>.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">To prepare dendrograms for display, stylo2gg uses <a href="https://cran.r-project.org/web/packages/dendextend/index.html">dendextend</a>.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -514,8 +473,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">This minimal dendrogram shows clusters using the Ward2 method based on Euclidean distances. If labels get clipped at the edge, consider expanding the limits using the added function shown here.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">This minimal dendrogram shows clusters using the Ward2 method based on Euclidean distances. If labels get clipped at the edge, consider expanding the limits using the added function shown here.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -534,8 +492,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Drawing a highlight box when texts are distributed widely isn’t very useful. The <code>highlight.nudge</code> option here moves the box’s edge to avoid clipping labels; whether it is needed might depend on local installations.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Drawing a highlight box when texts are distributed widely isn’t very useful. The <code>highlight.nudge</code> option here moves the box’s edge to avoid clipping labels; whether it is needed might depend on local installations.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -567,8 +524,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Manually indicate groupings to highlight using the <code>highlight.box</code> option. To aid in the counting, set <code>count.labels=TRUE</code>.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Manually indicate groupings to highlight using the <code>highlight.box</code> option. To aid in the counting, set <code>count.labels=TRUE</code>.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -593,8 +549,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Changing <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> allows zooming in on a particular region.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">Changing <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> allows zooming in on a particular region.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -608,8 +563,7 @@ div.csl-indent {
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full"><p><img src="01-stylo2gg_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">The plot created by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg()</a></code> passes along the variable <code>class</code> used for the categorical grouping.</figcaption><p></p>
-</figure>
+<figcaption class="figure-caption margin-caption">The plot created by <code><a href="https://rdrr.io/pkg/stylo2gg/man/stylo2gg.html">stylo2gg()</a></code> passes along the variable <code>class</code> used for the categorical grouping.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -632,51 +586,53 @@ div.csl-indent {
 <p>Many other extensions to Ggplot2 are available.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Although not all are appropriate for stylometry, and only some will be compatible with Stylo2gg’s data structure, it’s promising to see some like Ggforce working instantly.</p>
 </section><section id="conclusions" class="level2"><h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
 <p>Written by a user to improve reproducibility and customization of two types of visualization when using Stylo for research, Stylo2gg extends a beloved package. Over the past year, and especially because of suggestions proposed by others working with stylometry in R, it has added new features and become even more useful.</p>
+</section><div id="quarto-appendix" class="default"><section id="presented-at" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Presented at</h2><div class="quarto-appendix-contents">
+<p>USRSE2023, Chicago, IL, October 16–18, 2023.</p>
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-rmarkdown2023" class="csl-entry" role="doc-biblioentry">
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-rmarkdown2023" class="csl-entry" role="listitem">
 Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, et al. 2023. <em><span class="nocase">rmarkdown</span>: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
 </div>
-<div id="ref-stylo2gg" class="csl-entry" role="doc-biblioentry">
+<div id="ref-stylo2gg" class="csl-entry" role="listitem">
 Clawson, James M. 2023. <em>Stylo2gg: Visualize and Explore Stylo Data with Ggplot2</em> (version 1.0.1). <a href="https://github.com/jmclawson/stylo2gg">https://github.com/jmclawson/stylo2gg</a>.
 </div>
-<div id="ref-stylo" class="csl-entry" role="doc-biblioentry">
+<div id="ref-stylo" class="csl-entry" role="listitem">
 Eder, Maciej, Jan Rybicki, and Mike Kestemont. 2016. <span>“Stylometry with r: A Package for Computational Text Analysis.”</span> <em>R Journal</em> 8 (1): 107–21. <a href="https://journal.r-project.org/archive/2016/RJ-2016-007/index.html">https://journal.r-project.org/archive/2016/RJ-2016-007/index.html</a>.
 </div>
-<div id="ref-ginnerskov2022" class="csl-entry" role="doc-biblioentry">
+<div id="ref-ginnerskov2022" class="csl-entry" role="listitem">
 Ginnerskov, Josef. 2022. <span>“Change Color of Loadings (Arrows and Features).”</span> <em>Stylo2gg <em>Issues Tracker</em></em>. <a href="https://github.com/jmclawson/stylo2gg/issues/2">https://github.com/jmclawson/stylo2gg/issues/2</a>.
 </div>
-<div id="ref-ginnerskov2023" class="csl-entry" role="doc-biblioentry">
+<div id="ref-ginnerskov2023" class="csl-entry" role="listitem">
 ———. 2023. <span>“Loadings Stuck on PC1 and PC2 When Trying to Plot PC3.”</span> <em>Stylo2gg <em>Issues Tracker</em></em>. <a href="https://github.com/jmclawson/stylo2gg/issues/4">https://github.com/jmclawson/stylo2gg/issues/4</a>.
 </div>
-<div id="ref-mosteller" class="csl-entry" role="doc-biblioentry">
+<div id="ref-mosteller" class="csl-entry" role="listitem">
 Mosteller, Frederick, and David L. Wallace. 1963. <span>“Inference in an Authorship Problem.”</span> <em>Journal of the American Statistical Association</em> 58 (302): 275–309. <a href="http://www.jstor.org/stable/2283270">http://www.jstor.org/stable/2283270</a>.
 </div>
-<div id="ref-ggforce" class="csl-entry" role="doc-biblioentry">
+<div id="ref-ggforce" class="csl-entry" role="listitem">
 Pedersen, Thomas Lin. 2022. <em><span class="nocase">ggforce</span>: Accelerating <span>“<span class="nocase">ggplot2</span>”</span></em>. <a href="https://CRAN.R-project.org/package=ggforce">https://CRAN.R-project.org/package=ggforce</a>.
 </div>
-<div id="ref-base" class="csl-entry" role="doc-biblioentry">
+<div id="ref-base" class="csl-entry" role="listitem">
 R Core Team. 2022. <em><span>R</span>: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
-<div id="ref-schoch" class="csl-entry" role="doc-biblioentry">
+<div id="ref-schoch" class="csl-entry" role="listitem">
 Schöch, Christof. 2022. <span>“Proposal for a Replication or Documentation Mode.”</span> <em>Stylo <em>Issues Tracker</em></em>. <a href="https://github.com/computationalstylistics/stylo/issues/53">https://github.com/computationalstylistics/stylo/issues/53</a>.
 </div>
-<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
-<div id="ref-knitr2014" class="csl-entry" role="doc-biblioentry">
+<div id="ref-knitr2014" class="csl-entry" role="listitem">
 Xie, Yihui. 2014. <span>“<span class="nocase">knitr</span>: A Comprehensive Tool for Reproducible Research in <span>R</span>.”</span> In <em>Implementing Reproducible Computational Research</em>, edited by Victoria Stodden, Friedrich Leisch, and Roger D. Peng. Chapman; Hall/CRC.
 </div>
-<div id="ref-knitr2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-knitr2015" class="csl-entry" role="listitem">
 ———. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
 </div>
-<div id="ref-knitr2023" class="csl-entry" role="doc-biblioentry">
+<div id="ref-knitr2023" class="csl-entry" role="listitem">
 ———. 2023. <em><span class="nocase">knitr</span>: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
 </div>
-<div id="ref-rmarkdown2018" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rmarkdown2018" class="csl-entry" role="listitem">
 Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown">https://bookdown.org/yihui/rmarkdown</a>.
 </div>
-<div id="ref-rmarkdown2020" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rmarkdown2020" class="csl-entry" role="listitem">
 Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbook</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown-cookbook">https://bookdown.org/yihui/rmarkdown-cookbook</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
@@ -714,9 +670,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -781,6 +751,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
