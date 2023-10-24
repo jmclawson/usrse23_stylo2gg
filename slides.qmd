@@ -1,0 +1,537 @@
+---
+title: "`stylo2gg`: Visualizing Reproducible Stylometry"
+author: "James M. Clawson"
+format: 
+  revealjs:
+    message: false
+    warning: false
+    cap-location: margin
+    embed-resources: true
+    incremental: true
+    theme: [dark, custom.scss]
+    fig-align: center
+    slide-number: c/t
+    show-slide-number: speaker
+    multiplex: false
+bibliography: grateful-refs.bib
+nocite: |
+  @schoch, @ginnerskov2022, @ginnerskov2023, @mosteller
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+```
+
+# Reproducible notebook
+
+- [jmclawson.net/misc/stylo2gg/01-stylo2gg.html](https://jmclawson.net/misc/stylo2gg/01-stylo2gg.html)
+
+- [github.com/jmclawson/usrse23_stylo2gg](https://github.com/jmclawson/usrse23_stylo2gg)
+
+# background{.fancy-header}
+
+::: notes
+- In grad school, shared biblatex-mla.
+- Currently English professor working in DH.
+- English research traditionally 1 book a time -> DH many books
+- RSU to "RSE" by contributing to open source project to make it easier use in reproducible notebooks (and this presentation is also a notebook).
+- As an R package it went further to improve visualization
+:::
+
+# [Plan]{style="visibility: hidden;"}
+
+:::{.nonincremental style="font-size: 1.8em;" .absolute top=10}
+
+1.   Stylometry?
+2.   Viz. problems & solutions
+3.   `ggplot2` opportunities
+
+:::
+
+# 1. Stylometry
+
+-   measure distributions of features (words, characters, grammar, …)
+-   "fingerprint" of a work
+-   study style and authorship
+
+::: notes
+case studies:
+
+-   discovering Joe Klein's authorship of *Primary Colors* in 1996 (by Don Foster and others)
+-   affirming Harper Lee's authorship of *Go Set a Watchman* in 2016 (by Maciej Eder and Jan Rybicki)
+-   *The Federalist Papers* in 1963
+:::
+
+## *The Federalist Papers* (1787--1788){.fancy-header}
+
+::: columns
+::: {.column width="40%"}
+![](images/wikipedia-federalist.JPG){fig-align=center height="600px" style="float: left;"}
+:::
+
+::: {.column width="60%"}
+-   85 papers by "Publius" (Alexander Hamilton, James Madison, and John Jay)
+-   history of authorship research
+
+    -   Douglass Adair (1944)
+    -   Frederick Mosteller and David Wallace (1963)
+    -   count / compare features
+:::
+:::
+
+::: notes
+
+-   *Hamilton* musical: "Hamilton wrote 51!" of the 85
+-   14 papers in dispute
+
+Image from Wikipedia, manuscript gift from Elizabeth Schuyler Hamilton to sister Angelica
+:::
+
+## Stylometry in R
+
+-   `stylo` by Maciej Eder et al.
+-   interactive GUI or code-based
+-   frequency tables and visualizations
+-   principal component analysis, hierarchical clustering, etc.
+
+
+## `stylo` Problems [--- and `stylo2gg`]{.fragment fragment-index="4"}
+
+ 
+
+[logging]{.fragment fragment-index="1"} [--- with replication]{.fragment fragment-index="5"}
+
+ 
+
+[modifications]{.fragment fragment-index="2"} [--- with successive exploration]{.fragment fragment-index="6"}
+
+ 
+
+[graphics]{.fragment fragment-index="3"} [--- using `ggplot2`]{.fragment fragment-index="7"}
+
+
+## Lost logs with `stylo`
+
+```{r}
+#| eval: false
+library(stylo)
+
+my_data1 <- stylo(
+  gui = FALSE,
+  corpus.dir = "data/federalist/",
+  display.on.screen = FALSE,
+  culling.max = 75,
+  culling.min = 75,
+  mfw.min = 900,
+  mfw.max = 900)
+```
+
+![](images/logging-1.png){fig-align=center}
+
+## Log and replicate with `stylo2gg`
+
+```{r}
+#| eval: false
+library(stylo2gg)
+stylo_log(my_data1)
+```
+
+![](images/logging-2.png){fig-align=center}
+
+:::{.fragment .fade-in .absolute top=160}
+```{r}
+#| eval: false
+
+my_data2 <- stylo_replicate("2023-01-01 00:01:00")
+
+```
+:::
+
+# 2. Visualizing problems and solutions
+
+## Principal Component Analysis
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| label: introstylo1
+#| message: false
+#| eval: false
+#| fig-height: 10
+library(stylo)
+
+federalist_mfw <- 
+  stylo(gui = FALSE,
+        corpus.dir = "data/federalist/",
+        analysis.type = "PCR",
+        pca.visual.flavour = "symbols",
+        analyzed.features = "w",
+        ngram.size = 1,
+        display.on.screen = TRUE,
+        sampling = "no.sampling",
+        culling.max = 75,
+        culling.min = 75,
+        mfw.min = 900,
+        mfw.max = 900)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: introstylo2gg1
+#| eval: false
+#| message: false
+#| echo: true
+
+library(stylo2gg)
+
+stylo2gg(federalist_mfw)
+```
+:::
+:::
+
+:::{.fragment .fragment-fade-in-then-out .absolute top=-12 style="margins: 0 auto; text-align: center;"}
+```{r}
+#| label: introstylo2
+#| echo: false
+#| message: false
+#| eval: true
+#| fig-height: 8
+library(stylo)
+
+federalist_mfw <- 
+  stylo(gui = FALSE,
+        corpus.dir = "data/federalist/",
+        analysis.type = "PCR",
+        pca.visual.flavour = "symbols",
+        analyzed.features = "w",
+        ngram.size = 1,
+        display.on.screen = TRUE,
+        sampling = "no.sampling",
+        culling.max = 75,
+        culling.min = 75,
+        mfw.min = 900,
+        mfw.max = 900)
+```
+:::
+
+:::{.fragment .fragment-fade-in-then-out .absolute top=-12 style="margins: 0 auto; text-align: center;"}
+```{r}
+#| label: introstylo2gg2
+#| eval: true
+#| message: false
+#| echo: false
+#| fig-height: 8
+
+library(stylo2gg)
+
+stylo2gg(federalist_mfw)
+```
+:::
+
+::: notes
+-   Each point is one of 85 texts.
+-   Hamilton's texts are here... 
+-   Disputed texts are here...
+:::
+
+## Hierarchical Clustering
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| label: introstylo-hc1
+#| message: false
+#| eval: false
+#| fig-height: 10
+library(stylo)
+
+federalist_hc <- 
+  stylo(gui = FALSE,
+        corpus.dir = "data/federalist/",
+        analysis.type = "CA",
+        pca.visual.flavour = "symbols",
+        analyzed.features = "w",
+        ngram.size = 1,
+        display.on.screen = TRUE,
+        sampling = "no.sampling",
+        culling.max = 75,
+        culling.min = 75,
+        mfw.min = 900,
+        mfw.max = 900)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: introstylo2gg-hc1
+#| eval: false
+#| message: false
+#| echo: true
+
+library(stylo2gg)
+
+stylo2gg(federalist_hc)
+```
+:::
+:::
+
+:::{.fragment .fragment-fade-in-then-out .absolute top=-12 style="margins: 0 auto; text-align: center;"}
+```{r}
+#| label: introstylo-hc2
+#| echo: false
+#| message: false
+#| eval: true
+#| fig-height: 8
+federalist_hc <- 
+  stylo(gui = FALSE,
+        corpus.dir = "data/federalist/",
+        analysis.type = "CA",
+        pca.visual.flavour = "symbols",
+        analyzed.features = "w",
+        ngram.size = 1,
+        display.on.screen = TRUE,
+        sampling = "no.sampling",
+        culling.max = 75,
+        culling.min = 75,
+        mfw.min = 900,
+        mfw.max = 900)
+```
+:::
+
+:::{.fragment .fragment-fade-in-then-out .absolute top=-12 style="margins: 0 auto; text-align: center;"}
+```{r}
+#| label: introstylo2gg-hc2
+#| eval: true
+#| message: false
+#| echo: false
+#| fig-height: 8
+
+stylo2gg(federalist_hc)
+```
+:::
+
+::: notes
+-   Each leaf is one of 85 texts.
+-   Branches cluster texts by similarity.
+-   Hamilton's texts are here... 
+-   disputed texts are here...
+:::
+
+## Labeling
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-height: 10
+stylo2gg(federalist_mfw,
+         shapes = FALSE, 
+         labeling = 2)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| fig-height: 10
+stylo2gg(federalist_mfw,
+         shapes = FALSE, 
+         labeling = 0)
+```
+:::
+:::
+
+## Renaming, Highlighting, Emphasizing
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-height: 10
+federalist_mfw |> 
+  rename_category("NA", "unknown") |> 
+  stylo2gg(black = 4,
+           highlight = c(3, 4))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| fig-height: 9
+federalist_mfw |> 
+  rename_category("NA", "unknown") |> 
+  stylo2gg(viz = "CA",
+           shapes = FALSE,
+           black = 4,
+           highlight = 4)
+```
+:::
+:::
+
+## Overlaying features
+
+::: columns
+::: {.column width="50%"}
+::: {.absolute bottom=10 width=50%}
+```{r}
+#| fig-height: 8
+stylo2gg(federalist_mfw,
+  top.loadings = 6,
+  loadings.line.color = "blue",
+  loadings.word.color = "navy",
+  loadings.upper = TRUE)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.absolute bottom=10 width=50%}
+```{r}
+#| fig-height: 8
+stylo2gg(federalist_mfw,
+  loadings.line.color = "magenta",
+  loadings.word.color = "deeppink3",
+  select.loadings = list(c(-1, 2), 
+    "Jay", call("word", c("people","public","men","republic","state","woman","women"))))
+```
+:::
+:::
+:::
+
+## Other visualization options
+
+:::{.nonincremental}
+-   Flip horizontally, vertically
+-   Visualize other principal components
+-   Choose feature subsets
+-   Withhold a category from PCA space
+:::
+
+# 3. `ggplot2` opportunities
+
+<!-- ## Looking close{auto-animate=true} -->
+
+<!-- ```{r} -->
+<!-- #| fig-align: center -->
+<!-- federalist_mfw |>  -->
+<!--   stylo2gg() +  -->
+<!--   theme(panel.grid = element_blank()) -->
+<!-- ``` -->
+
+<!-- ## Looking even closer{auto-animate=true} -->
+
+<!-- ```{r} -->
+<!-- #| fig-align: center -->
+<!-- federalist_mfw |>  -->
+<!--   stylo2gg() +  -->
+<!--   coord_cartesian(xlim = c(-0.35, 4.4), -->
+<!--                   ylim = c(NA, 0.4)) + -->
+<!--   theme(panel.grid = element_blank()) -->
+<!-- ``` -->
+
+## Adding layers
+
+```{r}
+#| fig-align: center
+stylo2gg(federalist_mfw, "pca", legend = FALSE) + 
+  scale_alpha_manual(values = rep(0, 4)) +
+  geom_density_2d(aes(color = class),
+                  show.legend = FALSE) + 
+  theme_minimal()
+```
+
+## Increased customization
+
+```{r}
+#| message: false
+#| output-location: slide
+#| fig-height: 6.2
+#| fig-align: center
+federalist_mfw |> 
+  rename_category("NA", "unknown") |> 
+  stylo2gg(viz = "pca") + 
+  theme_minimal() +
+  theme(legend.position = c(0.9,0.15),
+        panel.grid = element_blank(),
+        plot.title.position = "plot") + 
+  scale_shape_manual(values = 15:18) +
+  scale_size_manual(values = c(8.5, 9, 7, 10)) +
+  scale_alpha_manual(values = rep(.5, 4)) + 
+  scale_color_manual(values = c("#E69F00", "#56B4E9", "#009E73", "#CC79A7")) +
+  labs(title = "Larger, solid points can make relationships easier to understand.",
+       subtitle = "Setting alpha values is a good idea when solid points overlap.",
+       x = NULL, y = NULL,
+       color = "author", shape = "author", alpha = "author", size = "author")
+```
+
+## Other packages
+
+```{r}
+#| output-location: slide
+#| fig-height: 6.2
+#| fig-align: center
+library(ggforce)
+library(wesanderson)
+
+federalist_mfw |> 
+  rename_category("NA", "disputed") |> 
+  stylo2gg("pca")  +
+  geom_mark_hull(aes(fill = class, 
+                     color = class)) + 
+  geom_mark_hull(aes(group = class, 
+                     label = class, 
+                     filter = class %in% c("Madison","disputed")),
+                 con.cap = 0,
+                 show.legend = FALSE) +
+  scale_fill_manual(values = wes_palettes$Darjeeling1[c(1:3,5)]) +
+  scale_color_manual(values = wes_palettes$Darjeeling1[c(1:3,5)])
+```
+
+# (4.) Use and usefulness
+
+## Reproducible notebooks
+
+![](images/quarto-combo.png){fig-align=center}
+
+## Publication ready
+
+::: columns
+::: {.column width="50%"}
+![](images/article-1.jpeg){height=600}
+![](images/milton-fig4.png){.fragment .fade-in .absolute top=250 width=450 style="border: 1px black solid;"}
+:::
+::: {.column width="50%"}
+![](images/article-2.png){height=600}
+![](images/durrell-fig6.png){.fragment .fade-in .absolute top=220 width=500 style="border: 1px black solid;"}
+:::
+:::
+
+## GitHub and `pkgdown` site
+
+[github.com/jmclawson/stylo2gg](https://github.com/jmclawson/stylo2gg)
+
+::: columns
+
+::: {.column width="50%"}
+![](images/github.png){fig-align=center height=312}
+:::
+
+::: {.column width="50%"}
+![](images/pkgdown-site.png){fig-align=center height=312}
+:::
+
+:::
+
+## jmclawson.net{.center}
+clawson@gmail.com
+
+## References
+
+::: notes
+This notebook was created using R version 4.2.1 [@base] with the following R packages: Ggforce v. 0.4.1 [@ggforce], Knitr v. 1.43 [@knitr2014; @knitr2015; @knitr2023], Rmarkdown v. 2.22 [@rmarkdown2018; @rmarkdown2020; @rmarkdown2023], Stylo v. 0.7.5 [@stylo], Stylo2gg v. 1.0.2 [@stylo2gg], Tidyverse v. 2.0.0 [@tidyverse].
+:::

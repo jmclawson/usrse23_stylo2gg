@@ -1,5 +1,5 @@
 ---
-title: "Stylo2gg: Visualizing reproducible stylometric analysis"
+title: "`stylo2gg`: Visualizing Reproducible Stylometry"
 author: "James M. Clawson"
 format: 
   html:
