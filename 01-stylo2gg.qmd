@@ -9,6 +9,8 @@ format:
     toc: true
     toc-location: left
     code-link: true
+    code-tools:
+      source: https://github.com/jmclawson/usrse23_stylo2gg/blob/main/01-stylo2gg.qmd
 bibliography: grateful-refs.bib
 nocite: |
   @schoch, @ginnerskov2022, @ginnerskov2023, @mosteller
@@ -102,7 +104,7 @@ One common method for understanding stylometric relationships among texts is to 
 ```{r}
 #| label: introstylo1
 #| cache: false
-#| fig-cap: "This visualization places each part by its frequencies of 120 of the most frequent words—chosen from among words appearing in at least three-fourths of all papers The chart shows that the texts whose authorship had once been in question, shown here in green crosses, have frequency distributions most similar to those by James Madison, shown here with red Xs."
+#| fig-cap: "This visualization places each part by its frequencies of 120 of the most frequent words—chosen from among words appearing in at least three-fourths of all papers The chart shows that the texts whose authorship had once been in question, shown here with red Xs, have frequency distributions most similar to those by James Madison, shown here with green crosses."
 
 library(stylo)
 
